@@ -1,0 +1,5 @@
+.gitignore
+*.xml
+*.pyc
+*.kdev*
+./kdev4
