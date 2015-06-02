@@ -135,7 +135,7 @@ class Search_engine:
 			doc = Doc(doc_file)
 			doc_list.append(doc)
 		self.trace = trace
-
+                                self.requete= None
 		self.DB = Data_Base()
 
 		if mode == 'build' :
@@ -165,3 +165,12 @@ class Search_engine:
 		"""
 		#TODO
 		return
+	
+	def parse_requete(self, requete):
+                                """
+                                                parse la requete introduite par l'utilisateur et produit une liste de tokens                                               
+                                """
+                        
+                            req_list= re.findall( '\w+', requete)
+                            self.requete= req_list
+                            return 
