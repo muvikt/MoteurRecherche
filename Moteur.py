@@ -156,14 +156,18 @@ class Search_engine:
 		"""
 			charge le contenu du fichier self.DB_file dans self.DB
 		"""
-		#TODO
+		stream = open(self.DB_file)
+                                self.DB = pickle.load(stream)
+                                stream.close()
 		return
 
 	def dump_DB(self):
 		"""
 			dump le contenu de self.DB dans le fichier self.DB_file
 		"""
-		#TODO
+		stream = open(self.DB_file, 'w')
+                                pickle.dump(self.DB, stream)
+                                stream.close()
 		return
 	
 	def parse_requete(self, requete):
