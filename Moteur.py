@@ -22,23 +22,96 @@ class Doc:
 
 		nb_word = nombre de mot dans le document
 	"""
-	global id_act = 0
+	global id_act
+	id_act=0
 	def __init__(self,doc_file):
+		global id_act
 		self.id = id_act
-		id_act += 1
-		self.word2pos_list_title = defaultdict([])
-		self.word2pos_list_first = defaultdict([])
-		self.word2pos_list_body = defaultdict([])
-		self.word2pos_list_para = defaultdict([])
+		id_act+=1
+		self.word2pos_list_title = defaultdict()
+		self.word2pos_list_first = defaultdict()
+		self.word2pos_list_body = defaultdict()
+		self.word2pos_list_para = defaultdict()
 		self.nb_word = 0
 		self.read_doc(doc_file)
 
+
 	def read_doc(self,docfile):
-		"""
-			lit le document dans le fichier doc_file et rempli les dictionnaires de listes de chaque champs avec les token du document. Compte également le nombre de mot
-		"""
-		#TODO
-		return
+		    """
+		    lit le document dans le fichier doc_file et rempli les dictionnaires de listes de chaque champs avec les token du document. Compte également le nombre de mot
+	    """
+		    flux=open(docfile)
+		    line=flux.readline()
+		    position=0
+		    title=True
+		    first=True
+		    while line <> '':
+		      liste=line.split()
+		      #print liste
+		      if title==True and len(liste)>0:
+			#line=flux.readline()
+			#liste=line.split()
+			title=False
+			for each in liste:
+			  if '\'' in each:
+			    strings=self.splitAccent(each)
+			    strings[0]+='\''
+			    for word in strings:
+			      if word not in self.word2pos_list_title:
+				self.word2pos_list_title[word]=[]
+			      self.word2pos_list_title[word].append(position)
+			      position+=1
+			  else:
+			    if each not in self.word2pos_list_title:
+				self.word2pos_list_title[each]=[]
+			    self.word2pos_list_title[each].append(position)
+			    position+=1
+			line=flux.readline()
+			liste=line.split()
+		      if first==True and title==False and liste!=[]:
+			  #print liste
+			  first=False
+			  for each in liste:
+			    if '\'' in each:
+			      strings=self.splitAccent(each)
+			      strings[0]+='\''
+			      for word in strings:
+				if word not in self.word2pos_list_first:
+				  self.word2pos_list_first[word]=[]
+				self.word2pos_list_first[word].append(position)
+				position+=1
+			    else:
+			      if each not in self.word2pos_list_first:
+				self.word2pos_list_first[each]=[]
+			      self.word2pos_list_first[each].append(position)
+			      position+=1
+			  line=flux.readline()
+			  liste=line.split()
+		      if first==False and title==False and liste!=[]:
+			for each in liste:
+			  if '\'' in each:
+			    strings=self.splitAccent(each)
+			    strings[0]+='\''
+			    for word in strings:
+			      if word not in self.word2pos_list_body:
+				self.word2pos_list_body[word]=[]
+			      self.word2pos_list_body[word].append(position)
+			      position+=1
+			  else:
+			    if each not in self.word2pos_list_body:
+			      self.word2pos_list_body[each]=[]
+			      self.word2pos_list_body[each].append(position)
+			    else:
+				self.word2pos_list_body[each].append(position)
+			    position+=1
+		      line=flux.readline()
+		    #print self.word2pos_list_title
+		    print self.word2pos_list_first
+		    #print self.word2pos_list_body
+		    #print self.word2pos_list_first["algèbre"]
+	
+	def splitAccent(self,word):
+	  return word.split('\'')
 
 class Doc_struct:
 	"""
