@@ -222,7 +222,7 @@ class Search_engine:
 			doc = Doc(doc_file)
 			doc_list.append(doc)
 		self.trace = trace
-                                self.requete= None
+                self.requete= None
 		self.DB = Data_Base()
 
 		if mode == 'build' :
@@ -244,8 +244,8 @@ class Search_engine:
 			charge le contenu du fichier self.DB_file dans self.DB
 		"""
 		stream = open(self.DB_file)
-                                self.DB = pickle.load(stream)
-                                stream.close()
+		self.DB = pickle.load(stream)
+		stream.close()
 		return
 
 	def dump_DB(self):
@@ -253,15 +253,14 @@ class Search_engine:
 			dump le contenu de self.DB dans le fichier self.DB_file
 		"""
 		stream = open(self.DB_file, 'w')
-                                pickle.dump(self.DB, stream)
-                                stream.close()
-		return
+		pickle.dump(self.DB, stream)
+		stream.close()
+		#return 
 	
 	def parse_requete(self, requete):
                                 """
                                                 parse la requete introduite par l'utilisateur et produit une liste de tokens                                               
                                 """
-                        
-                            req_list= re.findall( '\w+', requete)
-                            self.requete= req_list
-                            return 
+	  req_list= re.findall( '\w+', requete)
+	  self.requete= req_list
+	  #return 
