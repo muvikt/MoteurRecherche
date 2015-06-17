@@ -12,6 +12,7 @@ from random import shuffle
 import pickle
 from copy import deepcopy
 from nltk.stem.snowball import FrenchStemmer
+#pour stemmatiser 
 
 
 class Doc:
@@ -45,78 +46,72 @@ class Doc:
 		stemmer=FrenchStemmer()
 		flux=open(docfile)
 		line=flux.readline()
-		#line=line.decode('iso-8859-1')
 		position=0
 		title=True
 		first=True
 		while line <> '':
 		  liste=line.split()
-		  #print liste
-		  if title==True and len(liste)>0:
-		    #line=flux.readline()
-		    #liste=line.split()
+		  if title==True and len(liste)>0: #remplir le dictionnaire du titre
 		    title=False
 		    for each in liste:
 		      each=each.lower()
 		      if '\'' in each:
 			strings=self.splitAccent(each)
 			strings[0]+='\''
+			self.nb_word+=len(strings)
 			for word in strings:
-			  print word
 			  word= stemmer.stem(word.decode('iso-8859-1') )
 			  if word not in self.word2pos_list_title:
 			   self.word2pos_list_title[word]=[]
 			  self.word2pos_list_title[word].append(position)
 			  position+=1
 		      else:
-			print each
+			self.nb_word+=1
 			each=stemmer.stem(each.decode('iso-8859-1'))
 			if each not in self.word2pos_list_title:
 			   self.word2pos_list_title[each]=[]
 			self.word2pos_list_title[each].append(position)
 			position+=1
 		    line=flux.readline()
-		    #line=line.decode('iso-8859-1')
 		    liste=line.split()
-		  if first==True and title==False and liste!=[]:
-		      #print liste
+		  if first==True and title==False and liste!=[]: #pour remplir le dictionnaire du premier paragraphe
 		      first=False
 		      for each in liste:
 			each=each.lower()
 			if '\'' in each:
 			  strings=self.splitAccent(each)
 			  strings[0]+='\''
+			  self.nb_word+=len(strings)
 			  for word in strings:
-			    print word
 			    word= stemmer.stem(word.decode('iso-8859-1') )
 			    if word not in self.word2pos_list_first:
 			      self.word2pos_list_first[word]=[]
 			    self.word2pos_list_first[word].append(position)
 			    position+=1
 			else:
+			  self.nb_word+=1
 			  each=stemmer.stem(each.decode('iso-8859-1'))
 			  if each not in self.word2pos_list_first:
 			    self.word2pos_list_first[each]=[]
 			  self.word2pos_list_first[each].append(position)
 			  position+=1
 		      line=flux.readline()
-		      #line=line.decode('iso-8859-1')
 		      liste=line.split()
-		  if first==False and title==False and liste!=[]:
+		  if first==False and title==False and liste!=[]: #pour remplir le dictionnaire du corps de texte
 		    for each in liste:
 		      each=each.lower()
-		      print each
 		      if '\'' in each:
 			strings=self.splitAccent(each)
 			strings[0]+='\''
+			self.nb_word+=len(strings)
 			for word in strings:
-			  print word
 			  word= stemmer.stem(word.decode('iso-8859-1') )
 			  if word not in self.word2pos_list_body:
 			    self.word2pos_list_body[word]=[]
 			  self.word2pos_list_body[word].append(position)
 			  position+=1
 		      else:
+			self.nb_word+=1
 			each=stemmer.stem(each.decode('iso-8859-1'))
 			if each not in self.word2pos_list_body:
 			  self.word2pos_list_body[each]=[]
@@ -125,11 +120,9 @@ class Doc:
 			    self.word2pos_list_body[each].append(position)
 			position+=1
 		  line=flux.readline()
-		  #line=line.decode('iso-8859-1')
-		print self.word2pos_list_title
-		print self.word2pos_list_first
-		print self.word2pos_list_body
-		#print self.word2pos_list_first["algèbre"]	
+		#print self.word2pos_list_title
+		#print self.word2pos_list_first
+		#print self.word2pos_list_body
 		
 	def splitAccent(self,word):
 	  return word.split('\'')
