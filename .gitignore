@@ -3,3 +3,5 @@
 *.pyc
 *.kdev*
 ./kdev4
+./Doc_example
+test*
