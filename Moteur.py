@@ -13,6 +13,8 @@ import pickle
 from copy import deepcopy
 from nltk.stem.snowball import FrenchStemmer
 #pour stemmatiser 
+import os.path
+import os
 
 
 class Doc:
@@ -192,7 +194,7 @@ class Data_Base:
 	def add_doc(self,doc):
 		self.nb_doc_total += 1
 		self.id2doc[doc.id] = doc
-		self.id2nb_word[doc.id] = doc.nb_word
+		self.id2nbword[doc.id] = doc.nb_word
 		for word in doc.word2pos_list_title :
 			self.word2Word_struct[word].add(doc.id,'title',doc.word2pos_list_title[word])
 		for word in doc.word2pos_list_first :
@@ -221,16 +223,22 @@ class Search_engine:
 		self.mode = mode
 		self.DB_file = DB_file
 		self.doc_list = []
-		for doc_file in docfiles :
+		doc_to_read=[]
+		for root, dirs, files in os.walk(doc_files, topdown=False):
+			for file_name in files: 
+				doc_to_read.append(os.path.join(root, file_name))
+		for doc_file in doc_to_read :
 			doc = Doc(doc_file)
-			doc_list.append(doc)
+			self.doc_list.append(doc)
 		self.trace = trace
 								self.requete= None
 		self.DB = Data_Base()
 
 		if mode == 'build' :
 			#construction de la base de donnée, puis dump sur DB_file
-			self.build_DB(doc_files,DB_file)
+			print 'Built Data Base...'
+			self.build_DB()
+			print self.DB
 		elif mode == 'search' :
 			#chargement de la base de donnée
 			self.load_DB(DB_file)
@@ -240,7 +248,11 @@ class Search_engine:
 			rempli seld.DB avec les documents de self.doc_files
 		"""
 		#TODO
-		return
+		for doc in self.doc_list:
+				self.DB.add_doc(doc)
+		print self.DB.nb_doc_total
+		print self.DB.id2nbword
+		self.dump_DB()
 
 	def load_DB(self):
 		"""
@@ -255,6 +267,7 @@ class Search_engine:
 		"""
 			dump le contenu de self.DB dans le fichier self.DB_file
 		"""
+		print 'Dump data base....'
 		stream = open(self.DB_file, 'w')
 		pickle.dump(self.DB, stream)
 		stream.close()
@@ -262,8 +275,8 @@ class Search_engine:
 	
 	def parse_requete(self, requete):
 		"""
-			parse la requete introduite par l'utilisateur et produit une liste de tokens																							 
-		"""
+				parse la requete introduite par l'utilisateur et produit une liste de tokens
+			"""
 		req_list= re.findall( '\w+', requete)
 		self.requete= req_list
 		#return 
@@ -409,3 +422,7 @@ class Search_engine:
 		#TODO
 		return []
 		
+
+		
+		
+search=Search_engine('build', None, "./samples/", False)
