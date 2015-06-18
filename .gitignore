@@ -2,6 +2,7 @@
 *.xml
 *.pyc
 *.kdev*
+*.txt
 ./kdev4
 ./Doc_example
 test*
