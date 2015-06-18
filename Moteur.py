@@ -33,6 +33,8 @@ class Doc:
 		global id_act
 		self.id = id_act
 		id_act+=1
+		self.doc_file = doc_file
+		self.full_title = None
 		self.word2pos_list_title = defaultdict()
 		self.word2pos_list_first = defaultdict()
 		self.word2pos_list_body = defaultdict()
@@ -52,82 +54,83 @@ class Doc:
 		title=True
 		first=True
 		while line <> '':
-		  liste=line.split()
-		  if title==True and len(liste)>0: #remplir le dictionnaire du titre
-		    title=False
-		    for each in liste:
-		      each=each.lower()
-		      if '\'' in each:
+			liste=line.split()
+			if title==True and len(liste)>0: #remplir le dictionnaire du titre
+				self.full_title = line
+				title=False
+				for each in liste:
+					each=each.lower()
+					if '\'' in each:
 			strings=self.splitAccent(each)
 			strings[0]+='\''
 			self.nb_word+=len(strings)
 			for word in strings:
-			  word= stemmer.stem(word.decode('iso-8859-1') )
-			  if word not in self.word2pos_list_title:
-			   self.word2pos_list_title[word]=[]
-			  self.word2pos_list_title[word].append(position)
-			  position+=1
-		      else:
+				word= stemmer.stem(word.decode('iso-8859-1') )
+				if word not in self.word2pos_list_title:
+				 self.word2pos_list_title[word]=[]
+				self.word2pos_list_title[word].append(position)
+				position+=1
+					else:
 			self.nb_word+=1
 			each=stemmer.stem(each.decode('iso-8859-1'))
 			if each not in self.word2pos_list_title:
-			   self.word2pos_list_title[each]=[]
+				 self.word2pos_list_title[each]=[]
 			self.word2pos_list_title[each].append(position)
 			position+=1
-		    line=flux.readline()
-		    liste=line.split()
-		  if first==True and title==False and liste!=[]: #pour remplir le dictionnaire du premier paragraphe
-		      first=False
-		      for each in liste:
+				line=flux.readline()
+				liste=line.split()
+			if first==True and title==False and liste!=[]: #pour remplir le dictionnaire du premier paragraphe
+					first=False
+					for each in liste:
 			each=each.lower()
 			if '\'' in each:
-			  strings=self.splitAccent(each)
-			  strings[0]+='\''
-			  self.nb_word+=len(strings)
-			  for word in strings:
-			    word= stemmer.stem(word.decode('iso-8859-1') )
-			    if word not in self.word2pos_list_first:
-			      self.word2pos_list_first[word]=[]
-			    self.word2pos_list_first[word].append(position)
-			    position+=1
+				strings=self.splitAccent(each)
+				strings[0]+='\''
+				self.nb_word+=len(strings)
+				for word in strings:
+					word= stemmer.stem(word.decode('iso-8859-1') )
+					if word not in self.word2pos_list_first:
+						self.word2pos_list_first[word]=[]
+					self.word2pos_list_first[word].append(position)
+					position+=1
 			else:
-			  self.nb_word+=1
-			  each=stemmer.stem(each.decode('iso-8859-1'))
-			  if each not in self.word2pos_list_first:
-			    self.word2pos_list_first[each]=[]
-			  self.word2pos_list_first[each].append(position)
-			  position+=1
-		      line=flux.readline()
-		      liste=line.split()
-		  if first==False and title==False and liste!=[]: #pour remplir le dictionnaire du corps de texte
-		    for each in liste:
-		      each=each.lower()
-		      if '\'' in each:
+				self.nb_word+=1
+				each=stemmer.stem(each.decode('iso-8859-1'))
+				if each not in self.word2pos_list_first:
+					self.word2pos_list_first[each]=[]
+				self.word2pos_list_first[each].append(position)
+				position+=1
+					line=flux.readline()
+					liste=line.split()
+			if first==False and title==False and liste!=[]: #pour remplir le dictionnaire du corps de texte
+				for each in liste:
+					each=each.lower()
+					if '\'' in each:
 			strings=self.splitAccent(each)
 			strings[0]+='\''
 			self.nb_word+=len(strings)
 			for word in strings:
-			  word= stemmer.stem(word.decode('iso-8859-1') )
-			  if word not in self.word2pos_list_body:
-			    self.word2pos_list_body[word]=[]
-			  self.word2pos_list_body[word].append(position)
-			  position+=1
-		      else:
+				word= stemmer.stem(word.decode('iso-8859-1') )
+				if word not in self.word2pos_list_body:
+					self.word2pos_list_body[word]=[]
+				self.word2pos_list_body[word].append(position)
+				position+=1
+					else:
 			self.nb_word+=1
 			each=stemmer.stem(each.decode('iso-8859-1'))
 			if each not in self.word2pos_list_body:
-			  self.word2pos_list_body[each]=[]
-			  self.word2pos_list_body[each].append(position)
+				self.word2pos_list_body[each]=[]
+				self.word2pos_list_body[each].append(position)
 			else:
-			    self.word2pos_list_body[each].append(position)
+					self.word2pos_list_body[each].append(position)
 			position+=1
-		  line=flux.readline()
+			line=flux.readline()
 		#print self.word2pos_list_title
 		#print self.word2pos_list_first
 		#print self.word2pos_list_body
 		
 	def splitAccent(self,word):
-	  return word.split('\'')
+		return word.split('\'')
 
 class Doc_struct:
 	"""
@@ -222,13 +225,13 @@ class Search_engine:
 		self.doc_list = []
 		doc_to_read=[]
 		for root, dirs, files in os.walk(doc_files, topdown=False):
-		  for file_name in files: 
-		    doc_to_read.append(os.path.join(root, file_name))
+			for file_name in files: 
+				doc_to_read.append(os.path.join(root, file_name))
 		for doc_file in doc_to_read :
 			doc = Doc(doc_file)
 			self.doc_list.append(doc)
 		self.trace = trace
-                self.requete= None
+								self.requete= None
 		self.DB = Data_Base()
 
 		if mode == 'build' :
@@ -246,7 +249,7 @@ class Search_engine:
 		"""
 		#TODO
 		for doc in self.doc_list:
-		    self.DB.add_doc(doc)
+				self.DB.add_doc(doc)
 		print self.DB.nb_doc_total
 		print self.DB.id2nbword
 		self.dump_DB()
@@ -271,12 +274,155 @@ class Search_engine:
 		#return 
 	
 	def parse_requete(self, requete):
-	  """
-			  parse la requete introduite par l'utilisateur et produit une liste de tokens
-		  """
-	  req_list= re.findall( '\w+', requete)
-	  self.requete= req_list
-	  #return 
-	  
-	  
+		"""
+				parse la requete introduite par l'utilisateur et produit une liste de tokens
+			"""
+		req_list= re.findall( '\w+', requete)
+		self.requete= req_list
+		#return 
+		
+	def fuse_lst(self,title_lst,first_lst,body_lst,para_lst,acc) :
+		n_vide = 4
+		max = 0
+		max_cat = None
+		if title_lst != [] :
+			n_vide -= 1
+			max = title_lst.pop().doc_id
+		if first_lst != [] :
+			n_vide -= 1
+			first_id = first_lst.pop().doc_id
+		if body_lst != [] :
+			n_vide -= 1
+			body_id = body_lst.pop().doc_id
+		if para_lst != [] :
+			n_vide -= 1
+			para_id = para_lst.pop().doc_id
+		if n_vide == 4 :
+			return acc.reverse()
+		m = max(title_id,first_id,body_id,para_id)
+		p = acc.pop()
+		if m == title_id :
+			if m == p :
+			
+	def fuse_lst_rec(self,title_lst,title_head,first_lst,first_head,body_lst,body_head,para_lst,para_head,acc):
+		if acc == [] :
+			acc.append(-1)
+		m = max(title_head,first_head,body_head,para_head)
+		title_head_aux = title_head
+		first_head_aux = first_head
+		body_head_aux = body_head
+		para_head_aux = para_head		
+		if m == -1 :
+			acc.reverse()
+			acc.pop()
+			return acc
+		if m == title_head_aux :
+			if title_lst != [] :
+				title_head_aux = title_lst.pop()
+			else :
+				title_head_aux = -1
+		if m == first_head_aux :
+			if first_lst != [] :
+				first_head_aux = first_lst.pop()
+			else :
+				first_head_aux = -1
+		if m == body_head_aux :
+			if body_lst != [] :
+				body_head_aux = body_lst.pop()
+			else :
+				body_head_aux = -1
+		if m == para_head_aux :
+			if para_lst != [] :
+				para_head_aux = para_lst.pop()
+			else :
+				para_head_aux = -1
+		h = acc.pop()
+		if h != m :
+			acc.append(h)
+			acc.append(m)
+		else :
+			acc.append(h)
+		fuse_lst_rec(title_lst,title_head_aux,first_lst,first_head_aux,body_lst,body_head_aux,para_lst,para_head_aux,acc)
+		
+	def merge_dif_rec(self,lst1,head1,lst2,head2,acc)
+		if acc == [] :
+			acc.append(-1)
+		head1_aux = head1
+		head2_aux = head2
+		if head1_aux = head2_aux :
+			acc.append(head1_aux)
+			if lst1 == [] or lst2 = [] :
+				acc.reverse()
+				acc.pop()
+				return acc				
+			else :
+				head1_aux = lst1.pop()
+				head2_aux = lst2.pop()
+		if head1_aux > head2_aux :
+			if lst1 == [] :
+				acc.reverse()
+				acc.pop()
+				return acc
+			else :
+				head1_aux = lst1.pop()
+		else :
+			if lst2 == [] :
+				acc.reverse()
+				acc.pop()
+				return acc
+			else :
+				head2_aux = lst2.pop()
+		merge_dif_rec(lst1,head1_aux,lst2,head2_aux,acc)
+					
+	def serch_bool_word(self,word):
+		title_lst = []
+		title_head = -1
+		first_lst = []
+		first_head = -1
+		body_lst = []
+		body_head = -1
+		para_lst = []
+		para_head = -1
+		for doc_id in self.word2Word_struct[word].title :
+			title_lst.append(doc_id.doc_id)
+		for doc_id in self.word2Word_struct[word].first :
+			first_lst.append(doc_id.doc_id)
+		for doc_id in self.word2Word_struct[word].body :
+			body_lst.append(doc_id.doc_id)
+		for doc_id in self.word2Word_struct[word].para :
+			para_lst.append(doc_id.doc_id)
+		if title_lst != [] :
+			title_head = title_lst.pop()
+		if first_lst != [] :
+			first_head = first_lst.pop()
+		if body_lst != [] :
+			body_head = body_lst.pop()
+		if para_lst != [] :
+			para_head = para_lst.pop()
+		return fuse_lst_rec(title_lst,title_head,first_lst,first_head,body_lst,body_head,para_lst,para_head,[]):
+		
+	def search_bool_req(self,requete):
+		if requete == [] :
+			return []
+		#TODO ajouter une fonction pour trier les mots par ordre croissant de doc
+		word0 = requete.pop()
+		lst = search_bool_req(word0)
+		for word in requete :
+			if lst == [] :
+				return []
+			lst_aux = search_bool_req(word)
+			if lst_aux == [] :
+				return []
+			head_lst = lst.pop()
+			head_lst_aux = lst_aux.pop()
+			lst = merge_dif_rec(lst,head_lst,lst_aux,head_lst_aux,[])
+		return lst
+		
+	def search_rank_req(self,requete):
+		#TODO
+		return []
+		
+
+		
+		
 search=Search_engine('build', None, "./samples/", False)
