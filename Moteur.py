@@ -373,7 +373,7 @@ class Search_engine:
 		word0 = self.requete.pop()
 		lst = self.search_bool_word(word0)
 		for word in self.requete :
-			word=self.stemmer.stem(word.decode('utf-8'))
+			# word=self.stemmer.stem(word.decode('utf-8'))
 			if lst == [] :
 				return []
 			lst_aux = self.search_bool_word(word)
