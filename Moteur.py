@@ -237,7 +237,7 @@ class Search_engine:
 			#print self.DB
 		elif mode == 'search' :
 			#chargement de la base de donnee
-			self.load_DB(DB_file)
+			self.load_DB()
 
 	def build_DB(self):
 		"""
@@ -401,6 +401,6 @@ class Search_engine:
 		
 
 		
-search=Search_engine('build', "DataBase.txt", "./samples/", False)
+search=Search_engine('search', "DataBase.txt", "./samples/", False)
 search.parse_requete('irlandaise')
 print search.search_bool_req()
