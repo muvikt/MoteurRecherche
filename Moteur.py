@@ -392,4 +392,5 @@ class Search_engine:
 
 		
 search=Search_engine('build', "DataBase.txt", "./samples/", False)
-search.search_bool_word('algebre')
+search.parse_requete('algebre')
+search.search_bool_word()
