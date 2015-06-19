@@ -352,8 +352,8 @@ class Search_engine:
 		first_head = -1
 		body_lst = []
 		body_head = -1
-		#print word
-		word=self.stemmer.stem(word.decode('utf-8'))
+		print "searching ", word
+		#word=self.stemmer.stem(word.decode('utf-8'))
 		for doc_id in self.DB.word2Word_struct[word].title :
 			title_lst.append(doc_id.doc_id)
 		for doc_id in self.DB.word2Word_struct[word].first :
