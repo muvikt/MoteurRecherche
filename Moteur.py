@@ -279,6 +279,9 @@ class Search_engine:
 			word = self.stemmer.stem(word.decode('utf-8'))
 			self.requete.append(word)
 			print 'apres', word
+		print "requete (parse) :"
+		for word in self.requete :
+			print word
 		#return 
 		
 	def fuse_lst_rec(self,title_lst,title_head,first_lst,first_head,body_lst,body_head,acc):
@@ -369,12 +372,17 @@ class Search_engine:
 		return self.fuse_lst_rec(title_lst,title_head,first_lst,first_head,body_lst,body_head,[])
 		
 	def search_bool_req(self):
+		print "requete (search) :"
+		for word in self.requete :
+			print word
 		if self.requete == [] :
 			return []
 		#TODO ajouter une fonction pour trier les mots par ordre croissant de doc
 		word0 = self.requete.pop()
+		print "word (search) :",word0
 		lst = self.search_bool_word(word0)
 		for word in self.requete :
+			print "word (search) :",word
 			# word=self.stemmer.stem(word.decode('utf-8'))
 			if lst == [] :
 				return []
