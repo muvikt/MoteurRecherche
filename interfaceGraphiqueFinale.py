@@ -5,7 +5,7 @@ from Tkinter import*
 import Tkinter
 import os
 import sys
-import Moteur.py
+import Moteur
 
 #fenetre principale
 class MoteurRecherche(Tkinter.Tk):
@@ -151,13 +151,13 @@ class Seconde(Tkinter.Tk):
 
 				   
 		  def lireFichierText(self,fichier):
-					f=open(fichier,'r')
-					lines=f.readlines()
+			f=open(fichier,'r')
+			lines=f.readlines()
 			prnt=""
 			for line in lines:
 			  line=line.decode('utf-8')
 			  prnt=prnt+line+'\n'
-					return prnt
+			return prnt
 
 
 if __name__ == "__main__":
