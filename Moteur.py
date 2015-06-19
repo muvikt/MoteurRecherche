@@ -358,13 +358,13 @@ class Search_engine:
 		print "searching ", word
 		#word=self.stemmer.stem(word.decode('utf-8'))
 		for doc_id in self.DB.word2Word_struct[word].title :
-			print "title" , str(doc_id)
+			print "title" , str(doc_id.doc_id)
 			title_lst.append(doc_id.doc_id)
 		for doc_id in self.DB.word2Word_struct[word].first :
-			print "first" , str(doc_id)
+			print "first" , str(doc_id.doc_id)
 			first_lst.append(doc_id.doc_id)
 		for doc_id in self.DB.word2Word_struct[word].body :
-			print "body" , str(doc_id)
+			print "body" , str(doc_id.doc_id)
 			body_lst.append(doc_id.doc_id)
 		if title_lst != [] :
 			title_head = title_lst.pop()
