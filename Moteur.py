@@ -19,11 +19,11 @@ import os
 
 class Doc:
 	"""
-		--Représentation d'un document--
+		--Representation d'un document--
 		
 		id : identifiant entier du document
 		
-		word2pos_list_X = dictionnaire qui associe à chaque mot, présent dans le champs X, la liste des positions qu'occupent de mot dans ce même champs X au sein du document
+		word2pos_list_X = dictionnaire qui associe a chaque mot, present dans le champs X, la liste des positions qu'occupent de mot dans ce même champs X au sein du document
 
 		nb_word = nombre de mot dans le document
 	"""
@@ -38,13 +38,12 @@ class Doc:
 		self.word2pos_list_title = defaultdict()
 		self.word2pos_list_first = defaultdict()
 		self.word2pos_list_body = defaultdict()
-		self.word2pos_list_para = defaultdict()
 		self.nb_word = 0
 		self.read_doc(doc_file)
 
 	def read_doc(self,docfile):
 		"""
-			lit le document dans le fichier doc_file et rempli les dictionnaires de listes de chaque champs avec les token du document. Compte également le nombre de mot
+			lit le document dans le fichier doc_file et rempli les dictionnaires de listes de chaque champs avec les token du document. Compte egalement le nombre de mot
 		"""
 		stemmer=FrenchStemmer()
 		flux=open(docfile)
@@ -52,7 +51,7 @@ class Doc:
 		position=0
 		title=True
 		first=True
-		while line <> '':
+		while line != '':
 		  liste=line.split()
 		  if title==True and len(liste)>0: #remplir le dictionnaire du titre
 		    self.full_title = line
@@ -134,11 +133,11 @@ class Doc:
 
 class Doc_struct:
 	"""
-		--Information sur un document précis, étant donné un mot et un champs--
+		--Information sur un document precis, etant donne un mot et un champs--
 		
-		doc_id = identifiant du document traité
+		doc_id = identifiant du document traite
 
-		pos_list = liste des positions entières au sein d'un champs donné auxquelles apparait un mot donné dans le document courrant
+		pos_list = liste des positions entieres au sein d'un champs donne auxquelles apparait un mot donne dans le document courrant
 	"""
 
 	def __init__(self,doc_id,pos_list):
@@ -147,11 +146,11 @@ class Doc_struct:
 
 class Word_struct:
 	"""
-		--Information sur un mot de la base de donnée--
+		--Information sur un mot de la base de donnee--
 
-		nb_doc_word = nombre de document dans la base de donnée qui contiennent le mot en question
+		nb_doc_word = nombre de document dans la base de donnee qui contiennent le mot en question
 
-		X = liste de Doc_struct, un élément pour chaque document contenant le mot courrant dans son champ X
+		X = liste de Doc_struct, un element pour chaque document contenant le mot courrant dans son champ X
 
 		nb_doc_word_X = nombre de document comportant le mot courrant dans leur champ X
 	"""
@@ -163,8 +162,6 @@ class Word_struct:
 		self.nb_doc_word_first = 0
 		self.body = []
 		self.nb_doc_word_body = 0
-		self.para = []
-		self.nb_doc_word_para = 0
 
 	def add(self,doc_id,part,pos_lst):
 		if part == 'title':
@@ -174,15 +171,15 @@ class Word_struct:
 
 class Data_Base:
 	"""
-		--Base de Donnée--
+		--Base de Donnee--
 
-		word2Word_struct = dictionnaire qui associe à chaque mot l'ensemble des informations ne concernant (un Word_struct)
+		word2Word_struct = dictionnaire qui associe a chaque mot l'ensemble des informations ne concernant (un Word_struct)
 	
-		id2nbword = dictionnaire qui associe à chaque identifiant de document le nombre de mot se trouvant dans ce document
+		id2nbword = dictionnaire qui associe a chaque identifiant de document le nombre de mot se trouvant dans ce document
 
-		id2doc = dictionnaire qui associe à chaque identifiant de document le veritable document qui lui corespond. Ainsi, il est possible de renvoyer le document tout en ne traivaillant qu'avec l'identifiant
+		id2doc = dictionnaire qui associe a chaque identifiant de document le veritable document qui lui corespond. Ainsi, il est possible de renvoyer le document tout en ne traivaillant qu'avec l'identifiant
 
-		nb_doc_total = nombre de document présent dans la base de donnée
+		nb_doc_total = nombre de document present dans la base de donnee
 	"""
 
 	def __init__(self):
@@ -201,22 +198,20 @@ class Data_Base:
 			self.word2Word_struct[word].add(doc.id,'first',doc.word2pos_list_first[word])
 		for word in doc.word2pos_list_body :
 			self.word2Word_struct[word].add(doc.id,'body',doc.word2pos_list_body[word])
-		for word in doc.word2pos_list_para :
-			self.word2Word_struct[word].add(doc.id,'para',doc.word2pos_list_para[word])
 		
 class Search_engine:
 	"""
 		--Moteur de recherche--
 
-		DB_file = fichier contenant la base de donnée
+		DB_file = fichier contenant la base de donnee
 			si mode = build
-				la base de donnée construite sera dumpée sur DB_file
+				la base de donnee construite sera dumpee sur DB_file
 			si mode = search
-				la base de donnée sera récupéré depuis DB_file
+				la base de donnee sera recupere depuis DB_file
 
-		doc_files = liste de documents bruts à intégrer à la base de donnée
+		doc_files = liste de documents bruts a integrer a la base de donnee
 
-		DB = base de donnée de la classe Data_base
+		DB = base de donnee de la classe Data_base
 	"""
 
 	def __init__(self, mode='build', DB_file=None, doc_files=None, trace=False):
@@ -231,17 +226,17 @@ class Search_engine:
 			doc = Doc(doc_file)
 			self.doc_list.append(doc)
 		self.trace = trace
-		self.requete= None
+		self.requete= []
 		self.DB = Data_Base()
 		self.stemmer=FrenchStemmer()
 
 		if mode == 'build' :
-			#construction de la base de donnée, puis dump sur DB_file
+			#construction de la base de donnee, puis dump sur DB_file
 			print 'Built Data Base...'
 			self.build_DB()
 			#print self.DB
 		elif mode == 'search' :
-			#chargement de la base de donnée
+			#chargement de la base de donnee
 			self.load_DB(DB_file)
 
 	def build_DB(self):
@@ -279,17 +274,18 @@ class Search_engine:
 				parse la requete introduite par l'utilisateur et produit une liste de tokens
 			"""
 		req_list= re.findall( '\w+', requete)
-		self.requete= req_list
+		for word in req_list :
+			word = self.stemmer.stem(word.decode('utf-8'))
+			self.requete.append(word)
 		#return 
 		
-	def fuse_lst_rec(self,title_lst,title_head,first_lst,first_head,body_lst,body_head,para_lst,para_head,acc):
+	def fuse_lst_rec(self,title_lst,title_head,first_lst,first_head,body_lst,body_head,acc):
 		if acc == [] :
 			acc.append(-1)
-		m = max(title_head,first_head,body_head,para_head)
+		m = max(title_head,first_head,body_head)
 		title_head_aux = title_head
 		first_head_aux = first_head
-		body_head_aux = body_head
-		para_head_aux = para_head		
+		body_head_aux = body_head		
 		if m == -1 :
 			acc.reverse()
 			acc.pop()
@@ -309,18 +305,13 @@ class Search_engine:
 				body_head_aux = body_lst.pop()
 			else :
 				body_head_aux = -1
-		if m == para_head_aux :
-			if para_lst != [] :
-				para_head_aux = para_lst.pop()
-			else :
-				para_head_aux = -1
 		h = acc.pop()
 		if h != m :
 			acc.append(h)
 			acc.append(m)
 		else :
 			acc.append(h)
-		self.fuse_lst_rec(title_lst,title_head_aux,first_lst,first_head_aux,body_lst,body_head_aux,para_lst,para_head_aux,acc)
+		self.fuse_lst_rec(title_lst,title_head_aux,first_lst,first_head_aux,body_lst,body_head_aux,acc)
 		
 	def merge_dif_rec(self,lst1,head1,lst2,head2,acc):
 		if acc == [] :
@@ -359,8 +350,6 @@ class Search_engine:
 		first_head = -1
 		body_lst = []
 		body_head = -1
-		para_lst = []
-		para_head = -1
 		print word
 		word=self.stemmer.stem(word.decode('utf-8'))
 		for doc_id in self.DB.word2Word_struct[word].title :
@@ -369,25 +358,21 @@ class Search_engine:
 			first_lst.append(doc_id.doc_id)
 		for doc_id in self.DB.word2Word_struct[word].body :
 			body_lst.append(doc_id.doc_id)
-		for doc_id in self.DB.word2Word_struct[word].para :
-			para_lst.append(doc_id.doc_id)
 		if title_lst != [] :
 			title_head = title_lst.pop()
 		if first_lst != [] :
 			first_head = first_lst.pop()
 		if body_lst != [] :
 			body_head = body_lst.pop()
-		if para_lst != [] :
-			para_head = para_lst.pop()
-		return self.fuse_lst_rec(title_lst,title_head,first_lst,first_head,body_lst,body_head,para_lst,para_head,[])
+		return self.fuse_lst_rec(title_lst,title_head,first_lst,first_head,body_lst,body_head,[])
 		
-	def search_bool_req(self,requete):
-		if requete == [] :
+	def search_bool_req(self):
+		if self.requete == [] :
 			return []
 		#TODO ajouter une fonction pour trier les mots par ordre croissant de doc
-		word0 = requete.pop()
+		word0 = self.requete.pop()
 		lst = self.search_bool_word(word0)
-		for word in requete :
+		for word in self.requete :
 			word=self.stemmer.stem(word.decode('utf-8'))
 			if lst == [] :
 				return []
@@ -400,11 +385,11 @@ class Search_engine:
 		print lst
 		return lst
 		
-	def search_rank_req(self,requete):
+	def search_rank_req(self):
 		#TODO
 		return []
 		
 
 		
 search=Search_engine('build', "DataBase.txt", "./samples/", False)
-search.search_bool_word('algèbre')
+search.search_bool_word('algebre')
