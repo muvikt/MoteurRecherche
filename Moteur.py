@@ -42,93 +42,6 @@ class Doc:
 		self.nb_word = 0
 		self.read_doc(doc_file)
 
-
-	#def read_doc(self,docfile):
-		#"""
-			#lit le document dans le fichier doc_file et rempli les dictionnaires de listes de chaque champs avec les token du document. Compte également le nombre de mot
-		#"""
-		#stemmer=FrenchStemmer()
-		#flux=open(docfile)
-		#line=flux.readline()
-		#position=0
-		#title=True
-		#first=True
-		#while line <> '':
-			#liste=line.split()
-			#if title==True and len(liste)>0: #remplir le dictionnaire du titre
-				#self.full_title = line
-				#title=False
-				#for each in liste:
-					#each=each.lower()
-					#if '\'' in each:
-					  #strings=self.splitAccent(each)
-					  #strings[0]+='\''
-					  #self.nb_word+=len(strings)
-					  #for word in strings:
-					    #word= stemmer.stem(word.decode('iso-8859-1') )
-					    #if word not in self.word2pos_list_title:
-					      #self.word2pos_list_title[word]=[]
-					    #self.word2pos_list_title[word].append(position)
-					    #position+=1
-					#else:
-					  #self.nb_word+=1
-					  #each=stemmer.stem(each.decode('iso-8859-1'))
-					  #if each not in self.word2pos_list_title:
-						  #self.word2pos_list_title[each]=[]
-					  #self.word2pos_list_title[each].append(position)
-					  #position+=1
-				#line=flux.readline()
-				#liste=line.split()
-			#if first==True and title==False and liste!=[]: #pour remplir le dictionnaire du premier paragraphe
-			  #first=False
-			  #for each in liste:
-			    #each=each.lower()
-			    #if '\'' in each:
-				    #strings=self.splitAccent(each)
-				    #strings[0]+='\''
-				    #self.nb_word+=len(strings)
-				    #for word in strings:
-					    #word= stemmer.stem(word.decode('iso-8859-1') )
-					    #if word not in self.word2pos_list_first:
-						    #self.word2pos_list_first[word]=[]
-					    #self.word2pos_list_first[word].append(position)
-					    #position+=1
-			    #else:
-				    #self.nb_word+=1
-				    #each=stemmer.stem(each.decode('iso-8859-1'))
-				    #if each not in self.word2pos_list_first:
-					    #self.word2pos_list_first[each]=[]
-				    #self.word2pos_list_first[each].append(position)
-				    #position+=1
-			    #line=flux.readline()
-			    #liste=line.split()
-			#if first==False and title==False and liste!=[]: #pour remplir le dictionnaire du corps de texte
-				#for each in liste:
-					#each=each.lower()
-					#if '\'' in each:
-					  #strings=self.splitAccent(each)
-					  #strings[0]+='\''
-					  #self.nb_word+=len(strings)
-					  #for word in strings:
-						  #word= stemmer.stem(word.decode('iso-8859-1') )
-						  #if word not in self.word2pos_list_body:
-							  #self.word2pos_list_body[word]=[]
-						  #self.word2pos_list_body[word].append(position)
-						  #position+=1
-					#else:
-					  #self.nb_word+=1
-					  #each=stemmer.stem(each.decode('iso-8859-1'))
-			#if each not in self.word2pos_list_body:
-				#self.word2pos_list_body[each]=[]
-				#self.word2pos_list_body[each].append(position)
-			#else:
-					#self.word2pos_list_body[each].append(position)
-			#position+=1
-			#line=flux.readline()
-		#print self.word2pos_list_title
-		#print self.word2pos_list_first
-		#print self.word2pos_list_body
-	
 	def read_doc(self,docfile):
 		"""
 			lit le document dans le fichier doc_file et rempli les dictionnaires de listes de chaque champs avec les token du document. Compte également le nombre de mot
@@ -211,7 +124,7 @@ class Doc:
 			    self.word2pos_list_body[each].append(position)
 			position+=1
 		  line=flux.readline()
-		print self.word2pos_list_title
+		#print self.word2pos_list_title
 		#print self.word2pos_list_first
 		#print self.word2pos_list_body
 		
@@ -313,7 +226,7 @@ class Search_engine:
 		doc_to_read=[]
 		for root, dirs, files in os.walk(doc_files, topdown=False):
 			for file_name in files: 
-				doc_to_read.append(os.path.join(root, file_name))
+				doc_to_read.append(os.path.join(root, file_name.encode('utf-8')))
 		for doc_file in doc_to_read :
 			doc = Doc(doc_file)
 			self.doc_list.append(doc)
@@ -326,7 +239,7 @@ class Search_engine:
 			#construction de la base de donnée, puis dump sur DB_file
 			print 'Built Data Base...'
 			self.build_DB()
-			print self.DB
+			#print self.DB
 		elif mode == 'search' :
 			#chargement de la base de donnée
 			self.load_DB(DB_file)
@@ -338,9 +251,9 @@ class Search_engine:
 		#TODO
 		for doc in self.doc_list:
 				self.DB.add_doc(doc)
-		print self.DB.nb_doc_total
-		print self.DB.id2nbword
-		#self.dump_DB()
+		#print self.DB.nb_doc_total
+		#print self.DB.id2nbword
+		self.dump_DB()
 
 	def load_DB(self):
 		"""
@@ -448,6 +361,7 @@ class Search_engine:
 		body_head = -1
 		para_lst = []
 		para_head = -1
+		print word
 		word=self.stemmer.stem(word.decode('utf-8'))
 		for doc_id in self.DB.word2Word_struct[word].title :
 			title_lst.append(doc_id.doc_id)
@@ -472,16 +386,18 @@ class Search_engine:
 			return []
 		#TODO ajouter une fonction pour trier les mots par ordre croissant de doc
 		word0 = requete.pop()
-		lst = self.search_bool_req(word0)
+		lst = self.search_bool_word(word0)
 		for word in requete :
+			word=self.stemmer.stem(word.decode('utf-8'))
 			if lst == [] :
 				return []
-			lst_aux = self.search_bool_req(word)
+			lst_aux = self.search_bool_word(word)
 			if lst_aux == [] :
 				return []
 			head_lst = lst.pop()
 			head_lst_aux = lst_aux.pop()
 			lst = self.merge_dif_rec(lst,head_lst,lst_aux,head_lst_aux,[])
+		print lst
 		return lst
 		
 	def search_rank_req(self,requete):
@@ -490,6 +406,5 @@ class Search_engine:
 		
 
 		
-		
-search=Search_engine('build', None, "./samples/", False)
+search=Search_engine('build', "DataBase.txt", "./samples/", False)
 search.search_bool_word('algèbre')
