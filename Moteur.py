@@ -237,7 +237,7 @@ class Search_engine:
 			#print self.DB
 		elif mode == 'search' :
 			#chargement de la base de donnee
-			self.load_DB(DB_file)
+			self.load_DB()
 
 	def build_DB(self):
 		"""
@@ -358,10 +358,13 @@ class Search_engine:
 		print "searching ", word
 		#word=self.stemmer.stem(word.decode('utf-8'))
 		for doc_id in self.DB.word2Word_struct[word].title :
+			print "title" , str(doc_id)
 			title_lst.append(doc_id.doc_id)
 		for doc_id in self.DB.word2Word_struct[word].first :
+			print "first" , str(doc_id)
 			first_lst.append(doc_id.doc_id)
 		for doc_id in self.DB.word2Word_struct[word].body :
+			print "body" , str(doc_id)
 			body_lst.append(doc_id.doc_id)
 		if title_lst != [] :
 			title_head = title_lst.pop()
