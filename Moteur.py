@@ -275,8 +275,10 @@ class Search_engine:
 			"""
 		req_list= re.findall( '\w+', requete)
 		for word in req_list :
+			print 'avant', word
 			word = self.stemmer.stem(word.decode('utf-8'))
 			self.requete.append(word)
+			print 'apres', word
 		#return 
 		
 	def fuse_lst_rec(self,title_lst,title_head,first_lst,first_head,body_lst,body_head,acc):
@@ -350,7 +352,7 @@ class Search_engine:
 		first_head = -1
 		body_lst = []
 		body_head = -1
-		print word
+		#print word
 		word=self.stemmer.stem(word.decode('utf-8'))
 		for doc_id in self.DB.word2Word_struct[word].title :
 			title_lst.append(doc_id.doc_id)
@@ -382,7 +384,7 @@ class Search_engine:
 			head_lst = lst.pop()
 			head_lst_aux = lst_aux.pop()
 			lst = self.merge_dif_rec(lst,head_lst,lst_aux,head_lst_aux,[])
-		print lst
+		#print lst
 		return lst
 		
 	def search_rank_req(self):
@@ -392,5 +394,5 @@ class Search_engine:
 
 		
 search=Search_engine('build', "DataBase.txt", "./samples/", False)
-search.parse_requete('algebre')
-search.search_bool_word()
+search.parse_requete('irlandaise')
+print search.search_bool_req()
