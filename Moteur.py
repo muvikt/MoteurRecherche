@@ -167,7 +167,12 @@ class Word_struct:
 		if part == 'title':
 			self.nb_doc_word_title += 1
 			self.title.append(Doc_struct(doc_id,pos_lst))
-			
+		if part == 'first':
+			self.nb_doc_word_first += 1
+			self.first.append(Doc_struct(doc_id,pos_lst))
+		if part == 'body':
+			self.nb_doc_word_body += 1
+			self.body.append(Doc_struct(doc_id,pos_lst))
 
 class Data_Base:
 	"""
@@ -238,7 +243,8 @@ class Search_engine:
 		elif mode == 'search' :
 			#chargement de la base de donnee
 			self.load_DB()
-
+		print self.DB.word2Word_struct
+		
 	def build_DB(self):
 		"""
 			rempli seld.DB avec les documents de self.doc_files
@@ -246,7 +252,7 @@ class Search_engine:
 		#TODO
 		for doc in self.doc_list:
 				self.DB.add_doc(doc)
-		#print self.DB.nb_doc_total
+		print self.DB.nb_doc_total
 		#print self.DB.id2nbword
 		self.dump_DB()
 
@@ -275,13 +281,13 @@ class Search_engine:
 			"""
 		req_list= re.findall( '\w+', requete)
 		for word in req_list :
-			print 'avant', word
+			#print 'avant', word
 			word = self.stemmer.stem(word.decode('utf-8'))
 			self.requete.append(word)
-			print 'apres', word
-		print "requete (parse) :"
-		for word in self.requete :
-			print word
+			#print 'apres', word
+		#print "requete (parse) :"
+		#for word in self.requete :
+			#print word
 		#return 
 		
 	def fuse_lst_rec(self,title_lst,title_head,first_lst,first_head,body_lst,body_head,acc):
@@ -356,6 +362,9 @@ class Search_engine:
 		body_lst = []
 		body_head = -1
 		print "searching ", word
+		if word in self.DB.word2Word_struct:
+		  print "YES"
+		  print self.DB.word2Word_struct[word].body
 		#word=self.stemmer.stem(word.decode('utf-8'))
 		for doc_id in self.DB.word2Word_struct[word].title :
 			print "title" , str(doc_id.doc_id)
@@ -375,17 +384,17 @@ class Search_engine:
 		return self.fuse_lst_rec(title_lst,title_head,first_lst,first_head,body_lst,body_head,[])
 		
 	def search_bool_req(self):
-		print "requete (search) :"
-		for word in self.requete :
-			print word
+		#print "requete (search) :"
+		#for word in self.requete :
+			###print word
 		if self.requete == [] :
 			return []
 		#TODO ajouter une fonction pour trier les mots par ordre croissant de doc
 		word0 = self.requete.pop()
-		print "word (search) :",word0
+		#print "word (search) :",word0
 		lst = self.search_bool_word(word0)
 		for word in self.requete :
-			print "word (search) :",word
+			#print "word (search) :",word
 			# word=self.stemmer.stem(word.decode('utf-8'))
 			if lst == [] :
 				return []
@@ -405,5 +414,5 @@ class Search_engine:
 
 		
 search=Search_engine('search', "DataBase.txt", "./samples/", False)
-search.parse_requete('irlandaise')
+search.parse_requete('permet')
 print search.search_bool_req()
