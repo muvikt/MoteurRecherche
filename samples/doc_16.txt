@@ -1,0 +1,17 @@
+Abréviation
+
+Une abréviation (du latin "brevis", en français : « court », abrégé en « Abr. ») est le raccourcissement d'un mot ou d'un groupe de mots, représentés alors par un caractère ou un groupe de caractères issus de ce mot. L'abréviation consiste donc toujours en une suppression, plus ou moins importante. Par exemple, « c'est-à-dire » peut s'abréger en « c.-à-d. », etc. Il existe plusieurs méthodes pour abréger des groupes de mots, dont les plus courantes sont la siglaison et l'acronymie. Le point autre que celui de fin de phrase est souvent l'indice d'une abréviation. Il s'utilise quand la dernière lettre du mot abrégé est elle aussi supprimée : « monsieur » s'abrège en « M. » et « maître » en « M » (« e » étant bien la dernière lettre du mot). Si l'abréviation finit la phrase, le point abréviatif et le point final se confondent.
+Abréviations modernes.
+Parmi les nombreux symboles issus de ligatures ou de signes diacrités que l'on utilisait dans les manuscrits, certains se sont maintenus dans les écritures modernes. Les plus importants, étant maintenant intégrés dans quasiment toutes les langues et leurs écritures sont le point d'exclamation (« ! », abréviation de "interjectio") et le point d'interrogation (« ? », abréviation de "questio"). On peut aussi compter à ce titre l'esperluette (« & », ligature de "et") ainsi que le croisillon (« # », abréviation de "numerus", « numéro », soit "N" surmonté d'un "titulus").
+Typographie et abréviations.
+Les abréviations doivent être définies avant d’être utilisées, soit en note de bas de page à la première occurrence, soit en préface ou postface.
+Les abréviations sont habituellement composées de l’initiale du mot abrégé (et éventuellement d’une ou deux lettres suivantes) suivie d’un point.
+Elles peuvent l'être aussi de la première et de la dernière lettre du mot, ou des deux dernières lettres :
+Les abréviations de mots composés doivent respecter les tirets et espaces qui séparent ces mots. Les déterminants ne s’abrègent pas. Le trait d'union et l’espace doivent être insécables afin de ne pas risquer de retour à la ligne dans une abréviation.
+Lorsqu’une phrase se termine par une abréviation, on ne doit pas répéter le point final.
+Il ne faut pas séparer les lettres abréviatives avec la barre de division.
+Lorsque plusieurs mots ou groupes de mots commençant par les mêmes lettres doivent être abrégés dans le même texte, il est nécessaire d’ajouter des lettres afin de les distinguer. Par exemple :
+Autre exemple :
+Abréviations normées.
+Il existe des abréviations normées dans de nombreux domaines, par exemple :
+

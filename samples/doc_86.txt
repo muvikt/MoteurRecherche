@@ -1,0 +1,58 @@
+Forme de Backus-Naur
+
+La forme de Backus-Naur (souvent abrégée en BNF, de l'anglais "Backus-Naur Form") est une notation permettant de décrire les règles syntaxiques des langages de programmation. C’est donc un métalangage. Elle est utilisée dans certains livres pour décrire le langage étudié, mais également par de nombreux logiciels d’analyse syntaxique pour travailler sur des fichiers sources de plusieurs langages différents. Elle est une notation pour des grammaires formelles de type hors-contexte (car on définit les termes hors de leur contexte, pour replacer ensuite la définition desdits termes dans ce contexte).
+Cette syntaxe a été conçue par John Backus et Peter Naur lors de la création de la grammaire du langage Algol 60. Initialement appelée "Backus normal form" (« forme normale de Backus »), elle est devenue la « forme de Backus-Naur » à la suggestion de Donald Knuth.
+Le grammairien Panini est un précurseur de Backus et Naur.
+BNF et apprentissage.
+Bien que la prise de connaissance d’un langage demande une connaissance des rudiments de sa syntaxe, la BNF n'est pas nécessairement adaptée à l'apprentissage d'un langage.
+En effet, si la BNF a pour rôle de fixer des règles à des compilateurs et permet aussi à des informaticiens ayant les bases d'un langage d'en approfondir la logique fine, l'apprentissage initial de ce langage ne nécessite pas un tel degré de précision au départ, où on cherche à maîtriser la sémantique bien plus que la syntaxe (dont le compilateur signalera de toute façon les erreurs). Celui-ci peut même constituer un handicap par sa profusion de détails et de degrés d'abstraction imbriqués inutiles au simple "utilisateur" d'un langage. 
+Des expériences tentées vers 1967-1972 dans trois Écoles des Mines, par exemple, ont montré que cette forme axiomatique générale se mémorisait moins bien qu'une série d'exemples particuliers que l'élève généralisait ensuite de lui-même.
+Cela n'enlève rien à l'intérêt du métalangage dans le domaine pour lequel il a été conçu, qui n'est pas l'enseignement. Cette forme de description est par exemple parfaitement appropriée à l’écriture de compilateurs.
+Syntaxe.
+En BNF, on distingue les méta-symboles, les terminaux et les non-terminaux. Les méta-symboles sont tout simplement les symboles de BNF. Les symboles non-terminaux sont les noms des catégories que l’on définit, tandis que les terminaux sont des symboles du langage décrit.
+Prenons un exemple définissant la structure if du langage C :
+ <structure_if> ::= if "(" <condition> ")" "{" <code> "}"
+<structure_if>, <condition> et <code> sont des non-terminaux. ::= est un méta-symbole signifiant « est défini par ». if, "(", ")", "{" et "}" sont des terminaux. Lorsque les terminaux ne font qu’un caractère, qu’ils contiennent des caractères non alphanumériques ou qu’ils peuvent être confondus avec des méta-symboles, on les met entre guillemets.
+Il arrive souvent qu’un non-terminal puisse se définir de plusieurs façons. Dans ce cas, on utilise le méta-symbole |.
+ <categorie> ::= <un> | <deux> | ...
+On utilise parfois également des parenthèses :
+ <categorie> ::= ( <un> | <deux> ) <trois>
+qui équivaut à :
+ <categorie> ::= <un> <trois> | <deux> <trois>
+Extensions.
+Différentes extensions (voir en particulier l'Extended Backus-Naur Form) ont été proposées afin de faciliter la rédaction et la lecture d’un document BNF.
+Les crochets ([ et ]) entourent les éléments optionnels :
+ <structure_if> ::= if "(" <condition> ")" "{"
+ <code>
+ "}" [ else "{"
+ <code>
+Les accolades ({ et }) entourent les éléments à répéter un nombre indéfini de fois, ou ils sont suivis d'une astérisque (*).
+Un élément qui apparaît une ou plusieurs fois est suivi d'un signe plus (+)
+Avec cela, nous allons tenter une meilleure définition de if … else :
+ <ifelse> ::= <if>
+ [ { else <if> } ]
+ [ else
+ ( <instruction> ";" |
+ "{" { <instruction> ";" } "}" ) ]
+ <if> ::= if "(" <condition> ")"
+ ( <instruction> ";" |
+ "{" { <instruction> ";" } "}" )
+Évidemment, il manque à cette définition les définitions des non terminaux <instruction> et <condition>.
+Entorses.
+BNF est parfois utilisé par des logiciels de vérification syntaxique. Cependant, afin de faciliter la rédaction et la lecture de ce type de documents, de nombreux auteurs créent des BNF, non destinés à être utilisés dans un tel cadre, en réalisant quelques petites entorses, qui bien souvent sont très faciles à comprendre :
+Il arrive que les auteurs ne définissent pas certaines règles ou les définissent avec une phrase :
+ <caractere> ::= .. n’importe quel caractère ASCII ..
+Il est également courant, dans une liste, de n’indiquer que le premier et le dernier élément :
+ <alpha> ::= 'a' .. 'z' | 'A' .. 'Z'
+ou
+ <alpha> ::= 'a'-'z' | 'A'-'Z'
+Enfin, dans certains livres, pour des raisons de lisibilité, on supprime les < et > pour les non terminaux et on met en gras les terminaux :
+ ifelse ::= if
+ [ { else if } ]
+ [ else
+ ( instruction ; |
+ { { instruction ; } } ) ]
+ if ::= if ( condition )
+ ( instruction ; |
+ { { instruction ; } } )
+

@@ -1,0 +1,41 @@
+Amstrad CPC 464
+
+L'Amstrad CPC 464 est un ordinateur personnel britannique de la gamme Amstrad CPC, à affichage couleurs ou monochrome vert, comportant de RAM, en ROM et utilisant le langage Locomotive BASIC 1.0, considéré par certains passionnés comme le meilleur BASIC ayant jamais existé.
+Historique.
+Cet ordinateur, conçu pour l'utilisation familiale (il coûtait FF), répondait au lancement des ZX Spectrum, Oric 1 et Commodore 64 par Sinclair, Oric Corporation et Commodore. L'Amstrad CPC 464 sorti en septembre 1984 en France a connu un immense succès : il s'en vendait par mois pour un total de 2 millions d'exemplaires. Il a fait disparaître beaucoup d'ordinateurs et a peut-être marqué la fin d'une époque. Son succès fut tel que plus d'une dizaine de magazines spécialisés furent créés, dont le plus fameux, Amstrad Magazine. Pour la première fois, une seule fiche secteur était nécessaire, écran et unité centrale s'alimentaient directement sans adaptateur encombrant et deux fiches seulement reliaient les deux éléments entre eux, la mise en fonction était immédiate. C'est peu après le succès commercial du 464 qu'est apparu AMSDOS. CP/M qui était antérieur au 464 a été transposé sur cet ordinateur.
+Il existe un projet de descendant de l'Amstrad CPC à base de eZ80 à près de , le CPCNG à voir sur http://cpcng.hytherion.com et http://www.hanssummers.com/computers/cpcng.
+Description.
+Il utilisait un processeur Zilog Z80A (8 bits) à 4 MHz et comportait un lecteur de cassettes intégré pour le stockage des données. On pouvait lui ajouter un lecteur de disquettes au format 3 pouces.
+Le programme PROTEXT de traitement de texte n'était pas présent sur tous les CPC 464.
+Spécifications techniques.
+Processeur.
+Z80A à . De par le gateArray les opcodes prenaient tous 4 cycles au minimum. Dès lors certains estiment la perte de performance moyenne à 15 %. Cette estimation reste très statistique mais relativement acceptée par la communauté.
+Mémoire vive.
+ de RAM, extensibles à (des extensions à existent également, ce sont cependant des matériels non officiels).
+Mémoire morte.
+ de ROM, extensibles à .
+Lecteur de cassette.
+Le fait d'avoir un lecteur de cassette intégré n'avait rien d'anecdotique. En effet les débits depuis la cassette s'effectuaient sur le CPC 464 à 2000 bauds (2kbits) en vitesse rapide ou à 1000 bauds (1kbits) en vitesse lente.
+À titre de comparaison l'interface cassette du Commodore 64 fonctionnait à 300 bauds(0.3 kbits) et son lecteur de disquette C64 délivrait seulement 3000 bauds (3kbits).
+Capacités graphiques.
+La machine est équipée d'un Motorola CRTC 6845 (ou clones), plus une puce spécifique à Amstrad, le Gate Array. Le CPC ne possède pas de mode texte en tant que tel. Les informations de modes texte qu'on retrouve régulièrement indiquent en fait le nombre de caractères (de huit pixels sur huit) que peut afficher le système dans les différents modes graphiques.
+Le CPC standard possède une palette de 27 couleurs, constituées des trois teintes primaires (rouge, vert, bleu) auxquelles on applique les coefficients 0 ; 0,5 et 1. À l'origine le CPC était annoncé avec une palette de 32 couleurs. Malheureusement les 5 couleurs supplémentaires sont identiques à certaines teintes présentes parmi les 27 sus-nommées. Elles sont accessibles directement en Basic, mais n'ont aucun intérêt pratique.
+Chose rare sous l'ère des 8 bits l'affichage est du full bitmap sans contrainte. Chaque pixel peut être adressé indépendamment et n'importe quelle couleurs de la palette définie (2, 4 ou 16 couleurs parmi les 27 selon le mode). 
+Le CPC dispose de 4 modes graphiques de base utilisant 16 ko de mémoire, dont un non documenté :
+Il était possible de créer des modes alternatifs via la programmation du CRTC, voire d'utiliser 32 ko de mémoire pour l'affichage. Cette astuce était essentiellement utilisée pour certains écrans d'accueil en fullScreen en 192x264 (25 ko). Néanmoins les versions CPC de Donkey Kong et d'Arkanoid, par exemple, utilisaient des modes alternatifs permettant du 128x256 en 16 couleurs (16 ko) leur donnant un aspect plus proche des bornes d'arcade à écrans verticaux dont ils étaient originaires.
+Inconvénient des modes bitmaps pour le jeu vidéo.
+Les développeurs de jeux d'arcade sur Amstrad ont souffert de la carence d'un mode tiles et sprites et d'un scrolling pixel par pixel et de mode graphique full bitmaps sans contrainte.
+En effet, pour faire, par exemple un scrolling horizontal pixel par pixel à cinquante images par seconde en plein écran, il fallait que le Z80A fasse cinquante compositions d'écran de 16 kiloOctets par seconde, soit 800 ko/seconde, sans compter les modifications d'image à faire pour positionner les « sprites » logiciels. En effet, bien que le CRTC permît d'effectuer des scrolling horizontaux hard, ceux-ci n'étaient disponibles que par incrément complet d'un octet, soit un pas de 2,4 ou 8 pixels (mode 0,1 ou 2) forçant bien des programmes à utiliser des scrolling soft pour éviter les saccades. C'est pour cette raison que la plupart des jeux d'arcade sur CPC présentent une surface jouable inférieure à leurs homologues sur d'autres plateformes. 
+Il était par contre bien plus facile de gérer des scrolling verticaux en hard mais par incrément dont 1024 était un multiple plein. D'où de nombreux shoot verticaux dans des fenêtre de 128 pixels de large sur les 160 disponibles en mode 0 sur le CPC. Néanmoins, ici, le 128x200 avait aussi l'avantage de conserver l'aspect d'un shoot vertical.
+À titre de comparaison, à la même époque, le mode Tiles & Sprite sur la Sega Master System (également à base de Z80A) avec scrolling hard pixel par pixel nécessitait, pour un scrolling pixel par pixel, 50/8 (scrolling hard) * 1 k (taille de la table de tiles,) soit 6,2 ko secondes à gérer par le Z80A.
+Pour le C64, grâce à des caractères redéfinissables en 4 couleurs et d'un scrolling hard d'un pixel en mode "texte" on pouvait simuler des "tiles" cette opération ne nécessitait donc que de traiter que de 50*/8 (scrolling hard) * 10 k (taille d'un 160x200 en 4 couleur + 2ko définissant les 4 couleurs utilisées par caractère) ⇒ 62.5 ko/seconde, ce qui, avec une capacité CPU deux fois inférieure au CPC, prenait tout de même cinquante fois moins de temps CPU et permettait une réelle fluidité. De plus, il disposait de sept sprites hard monochrome et de deux sprites hard multicouleurs. 
+Le ZX Spectrum, lui, devait rafraîchir 350 ko/seconde mais souffrait du Color Clash. 
+Sur MSX, point de salut : les développeurs devaient se contenter de scrolling par pas de huit pixels et de sprite monochrome.
+Pour les jeux « 3D » fil de fer (dont le majestueux Elite) voire en fractales (Rescue on Fractalus!), ces 800 ko/secondes (ici souvent du 320x200 en 4 couleurs) sont à comparer au 50x6,7 ko = 350 ko/seconde du mode 256x192 16 couleurs avec contrainte du ZX Spectrum . Ici le C64 devait traiter 50 x 10ko = 500 ko/seconde de son mode graphique 320x200 16 couleurs avec contrainte du C64.
+Capacités sonores.
+General Instruments AY-3-8912, 3 voies stéréo avec une fréquence de 1 Mhz. Le même processeur sonore que le ZX Spectrum, l'Oric, le MSX et l'Atari ST. L'AY-3-8912 possède aussi des ports d'entrées/sorties, qui sont utilisées sur CPC pour l'interrogation du clavier et du joystick.
+Clavier.
+AZERTY ou QWERTY suivant les régions, il existe aussi une version de 464 intégrant la touche « ñ » espagnole. Le clavier possède un pavé numérique.
+Connecteurs.
+Il n'y a pas d'interface RS-232, celle-ci est en revanche disponible séparément.
+

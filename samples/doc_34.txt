@@ -1,0 +1,28 @@
+Sid Meier's Alpha Centauri
+
+Jeu de gestion et de stratégie en tour par tour, créé par Sid Meier, "Alpha Centauri repose sur une hypothétique colonisation humaine de la planète Chiron, située dans le système d’Alpha du Centaure.
+"Alpha Centauri" peut être considéré comme la suite du jeu "Civilization", dont l’objectif final était d’envoyer un vaisseau coloniser le système d’Alpha Centauri. Selon l’histoire, le vaisseau spatial transportant les colons est victime d’un avarie peu avant son arrivée, obligeant les humains jusqu’alors unis à se diviser en sept factions rivales caractérisées par des idéologies différentes et dont les objectifs et les capacités divergent. Chacune des factions parvient à quitter le navire et à gagner la surface de Chiron à bord d’un module de survie.
+Bien que le jeu ait bénéficié d'une excellente réception critique, il est celui de la série "Civilization" qui s'est le moins bien vendu.
+Déroulement du jeu.
+Le jeu débute en 2100. À chaque tour ou année, chacune des 7 factions organise son activité, les déplacements de ses unités (civiles ou de combats). Le jeu s'arrête lorsqu'une des factions domine les autres, soit par ses conquêtes, son économie, ses recherches et le développement de technologies ou lorsque l'on atteint une date déterminée (2600).
+En tant que jeu de mise en place des civilisations, il offre la possibilité au joueur de définir lui-même son objectif final, orientant celui-ci vers des objectifs de victoire diplomatique, économique, par conquête ou par transcendance.
+Au cours du jeu, le joueur se glisse dans la peau du leader d’une des sept factions, et essaye de développer sa colonie et de parvenir à la victoire. Les différents joueurs entrent progressivement en contact les uns avec les autres, et s’engagent dans une course au pouvoir, chacun étant libre d’adopter la stratégie qui lui convient le mieux dans la poursuite de son objectif.
+Les découvertes scientifiques faites au cours du jeu définissent les technologies disponibles pour chaque faction, ce qui définit la nature des bâtiments et aménagements pouvant être construit dans les bases, ainsi que le type d’unités pouvant être produites (militaires, unités d’exploration, de terra-formation ou de colonisation).
+En plus de la compétition entre factions humaines, une forme de vie indigène (qui joue un rôle d'anticorps à l'échelle planétaire) entre aussi en compétition pour les ressources disponibles sur Chiron (également appelé Planète).
+Les factions.
+Les sept factions du jeu sont les suivantes:
+L'extension Alien Crossfire permet de jouer sept factions supplémentaires, dont deux de race extra-terrestre : 
+Critique.
+Bien que d’autres jeux soient fondés sur des principes similaires, "Alpha Centauri" est particulièrement soigné. L’interface est très bien conçue, la bande son impeccable, les vidéos d’excellente qualité et la traduction particulièrement réussie.
+Le jeu, doublé d’une œuvre de science-fiction, et reposant sur des principes écologiques assez poussés, est extrêmement bien documenté, d’une profondeur conceptuelle rare, et invite à une véritable réflexion sur le devenir de l’humanité.
+Un des autres points forts du jeu est la personnalisation avancée des unités, chacune étant considérée comme un « châssis » (jeep, hélicoptère, croiseur…) sur lequel on monte une « arme/module », un « blindage » et un type de « moteur », le tout complété par des « modules » optionnels (amphibie, brouillage, capacité d'artillerie…). Ceci permet de créer au goût du joueur divers types d'unités suivant ses besoins et son style de jeu, et selon les technologies découvertes.
+Plateformes et extension.
+Alpha Centauri est disponible sur PC, Macintosh, et Linux (uniquement en anglais), et peut être joué en ligne.
+Il peut être complété par le pack d’extension Alien Crossfire, lequel propose sept nouvelles factions (dont deux étant extra-terrestres) et de nombreuses nouvelles technologies.
+Inspirations.
+Les formes de vie locales, mais aussi le style de la planète visitée (Alpha Centauri B) se basent fortement sur les univers créé par Frank Herbert dans son cycle du "Programme conscience", en particulier dans "L'Incident Jésus", ainsi que par Isaac Asimov dans son roman "Némésis".
+"Planet" pourrait aussi évoquer Solaris, de Stanislas Lem, le xenofongus rappelant l' Océan, mais aussi de par les "contacts" avec ces personnifications.
+Plusieurs séquences des vidéos du jeu sont extraites du film "Baraka".
+Accueil par la presse spécialisée.
+Le jeu a reçu d'excellentes critiques ; le magazine "PC Gamer" notamment lui a donné la note de 98 %, la plus haute note qu'il ait donnée à un jeu (aussi décernée à Half-Life 2).
+

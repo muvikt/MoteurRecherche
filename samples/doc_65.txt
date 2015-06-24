@@ -1,0 +1,74 @@
+Agriculture durable
+
+L'agriculture durable (anciennement soutenable, en traduction littérale de l'anglais "sustainable") est l'application à l'agriculture des principes du développement durable ou soutenable tels que reconnus par la communauté internationale à Rio de Janeiro en juin 1992. Il s'agit d'un système de production agricole qui vise à assurer une production pérenne de nourriture, de bois et de fibres en respectant les limites écologiques, économiques et sociales qui assurent la maintenance dans le temps de cette production. L'agriculture durable vise à réduire les impacts du secteur en matière environnementale (voir section environnement de l'article agriculture) et sociale. C'est notamment une agriculture qui protège mieux la biodiversité, l'eau et les sols qui lui sont nécessaires et qui l'utilise mieux via les auxiliaires de l'agriculture et les services écosystémiques
+Objectifs poursuivis.
+L'agriculture durable vise une amélioration dans la soutenabilité du système, en créant plus de richesses pérennes et d'emplois par unité de production, sur une base plus équitable. Ces principes sont basés sur la reconnaissance du fait que les ressources naturelles ne sont pas infinies et qu'elles doivent être utilisées de façon judicieuse pour garantir durablement la rentabilité économique, le bien-être social, et le respect de l'environnement (les trois piliers du développement durable).
+Concrètement et dans l'idéal (rien n'assurant qu'une agriculture respectant simultanément toutes ces qualités soit possible) :
+Quelques principes d'agriculture durable.
+Pour être durable, l'agriculture doit respecter quelques principes :
+À ces principes de base, il faut ajouter la nécessité d'éviter les usages dispersifs des métaux en agriculture. L'étude de l'association des Centraliens sur la raréfaction des métaux recense un certain nombre d'usages dispersifs à éviter.
+Organisation de l'agriculture durable.
+Le concept principal est celui d'une exploitation agricole constituée par un ensemble de sous-systèmes fonctionnant tous en interaction, un sous-système générant des entrées pour les autres, le système fonctionnant dans l'idéal en cycle fermé.
+Organisation en filière intégrée.
+L'agriculture durable doit être intégrée par tous les agents économiques de la filière, de la fourche à la fourchette (du producteur au consommateur), en incluant les parties prenantes concernées par :
+Le suivi en fonction des parcelles (agriculture de précision) nécessite l'utilisation de technologies de l'information, en particulier des systèmes d'information géographique.
+Une filière doit être évaluée selon des critères normés communs à tous les agents économiques de la filière, en cohérence avec le cadre normatif des comptabilités nationales.
+Prévention des risques.
+Types d'action (acteurs) :
+Valorisation de la biomasse.
+Selon les principes de l'agriculture durable, la valorisation de la biomasse n'est pas réservée exclusivement à l'alimentation humaine. Les produits agricoles, ainsi que les déchets et résidus de l'activité agricole, peuvent avoir d'autres utilisations :
+Traçabilité.
+Assurer la sécurité sanitaire des aliments implique de mettre en place un suivi le long de toute la chaîne alimentaire, "« de la fourche à la fourchette »".
+L'agriculture durable s'appuie sur des preuves et une traçabilité apportées par des certifications créditables, faites par des certificateurs indépendants.
+La mise en œuvre de filières intégrées d'agriculture durable met en jeu l'interopérabilité de systèmes hétérogènes, donc la cohérence et la qualité des données (voire leur sécurité), ce qui implique l'utilisation d'un cadre normatif global.
+La normalisation relative aux denrées alimentaires est constituée par la série de normes ISO sur la
+sécurité des denrées alimentaires.
+Agriculture durable et Union européenne.
+Développement rural.
+La Politique agricole commune de l'Union européenne a fait l'objet de révisions en 1999. Le premier pilier sur le contrôle des marchés a été complété par un deuxième pilier : le développement rural, qui fait référence au développement durable, sur la filière forestière.
+Le développement rural est décrit dans le règlement de développement rural (RDR) de la PAC qui peut financer des mesures agro-environnementales via les "États-membres". Une première version de ce règlement a été établie pour la période 200O-2006. Une seconde version (règlement de développement rural II) a été établie pour la période 2007-2013.
+D'autre part, l'Union européenne a édicté des directives sur la sécurité alimentaire ("Paquet hygiène") qui concerne toute la filière agricole et agroalimentaire ("« de la fourche à la fourchette »").
+Il existe aussi une série de normes internationales sur la traçabilité des denrées alimentaires : ISO 22000.
+Voir aussi Traçabilité agroalimentaire
+Déclinaison dans les États membres.
+Le RDR européen se décline dans chaque État membre par un plan de développement rural national (PDRN).
+La loi d'orientation agricole du 9 juillet 1999 définit un cadre contractuel innovant entre agriculteurs et pouvoirs publics, devant permettre de répondre aux nouvelles attentes de la société civile en termes de multifonctionnalité de l’agriculture et de développement durable.
+Ce cadre est défini dans le Contrat Territorial d'Exploitation (CTE).
+Les CTE ont été modifiés par des Contrats d'Agriculture Durable (CAD) : le but est toujours de préserver les ressources naturelles en luttant pour la qualité des sols, de l'eau, de la biodiversité et des paysages (cf décret 2003-675 du 22 juillet 2003).
+Conditionnalité des aides PAC.
+La conditionnalité soumet le versement de certaines aides de la politique agricole commune au respect d’exigences de base en matière d’environnement et de santé. La conditionnalité est mise en place depuis 2005. Elle garantit une agriculture plus durable et favorise ainsi une meilleure acceptation de la PAC par l'ensemble des citoyens. Ce dispositif soumet le versement de certaines aides communautaires au respect d'exigences en matière de bonnes conditions agricoles et environnementales (BCAE), de santé, et de protection animale.
+Mesure des impacts environnementaux.
+Les nuisances et pollutions peuvent être mesurées dans le cadre des mesures de prévention des risques.
+Il existe un modèle macroéconomique, développé par l'OCDE, qui sert de référence en Europe, pour la mesure de ces « pressions environnementales » : le modèle Pression-État-Réponse (PER).
+On peut donc transformer les mesures enregistrées sur le terrain en indicateurs du modèle PER.
+D'autre part, on peut agréger ces mesures par secteurs économiques, selon les nomenclatures officielles (NACE, secteurs institutionnels…).
+La future agriculture durable, d'avenir, ne pourra se passer de la pratique d'une climatologie appliquée responsable comme en Agroforesterie dite aussi forêt-jardin, en considérant beaucoup plus que dorénavant l'énorme effet thermique, aéraulique et climatique de l'air humide (35 fois plus absorbeur de chaleur que l'air sec...), bien plus favorable que l'élimination du CO2 dans l'effet de serre...! Celle la plus possible à transpiration arborée l'été, avec retenues d'eau (et d'humus !) en terrasses successives dans les hauts, également si efficace contre l'érosion, les crues...! Comme plus globalement, de tenir enfin compte du déséquilibrage de continents trop secs, ou, à climat subtropical surchauffé (attirant irrésistiblement les cyclones et autres tornades en fin d'été) - "Jacques Tesseire, thermicien, climatologue, paysagiste"
+Agriculture durable en France.
+Différentes acceptions du terme en France.
+L'agriculture durable ne doit donc pas être confondue avec l'agriculture raisonnée qui s'appuie sur un référentiel national (validé par l'État et contrôlé par des organismes certificateurs indépendants) et qui intègre beaucoup de réglementations déjà obligatoires pour prétendre toucher les subventions PAC, soit le strict minimum en matière d'environnement et avec une logique d'utiliser la dose maximum utile d'intrant, là et quand elle est utile. Pendant que l'agriculture durable cherchera la restauration de l'agroécosystème, considérant l'écologie comme une facette logique permettant une économie directe d'intrants.
+Le terme "agriculture soutenable", parfois rencontré, est une traduction du terme anglais "sustainable agriculture", qui a d'abord été utilisée bien qu'impropre parce que plus littérale.
+Quelles données chiffrées.
+L'agriculture consomme un peu moins de 2 % de l'énergie en France, part voisine de sa contribution au PIB. La consommation concerne essentiellement les tracteurs et autres véhicules agricoles (fioul domestique, et dans une bien moindre mesure gazole et essence), le chauffage des élevages (électricité et gaz propane, butane), des séchoirs et des serres (fioul domestique et gaz propane, butane ou gaz de réseau). Les dépenses consacrées à l'énergie directe étaient de par exploitation agricole en moyenne en 2007.
+Dispositions législatives.
+Le ministère français chargé de l'agriculture a lancé à la suite du Grenelle Environnement un plan « Objectif Terres 2020 », dont l'objectif est de mettre en œuvre un nouveau modèle agricole français plus respectueux des exigences de développement durable.
+Ce plan se décline actuellement dans une dimension énergétique en un plan de performance énergétique des exploitations agricoles.
+La loi de modernisation de l'agriculture et de la pêche de 2010 a mis en place le plan régional d'agriculture durable. Le décret d'application de cette loi relatif au plan régional d'agriculture durable, du 16 mai 2011, a modifié le code rural (article D111-1).
+L'agriculture dans le plan national d'adaptation au changement climatique.
+L'agriculture fait l'objet du chapitre V (éclairages sectoriels), première section du plan national d'adaptation au changement climatique (). La recommandation précise :
+Dans le monde.
+Fracture Nord / Sud.
+Il existe des positions assez divergentes dans les pays développés sur l'attitude à adopter vis-à-vis de l'agriculture des pays du Sud :
+Une solution pour sortir de ce dilemme consiste à inclure des correspondants des pays du Sud dans les réseaux de compétence.
+Une solution à la crise alimentaire.
+Nous serons 9 milliards en 2050. Or actuellement, 1 milliard de gens souffrent de la faim dans le monde et la majorité sont des agriculteurs. Constat sidérant car ces derniers sont précisément ceux qui nous nourrissent.
+Aussi revaloriser les petites exploitations agricoles familiale avec une agriculture durable serait une solution.
+L'agriculture durable pourrait combattre la crise alimentaire car:
+Voir aussi.
+Économie et durabilité en agriculture
+Union européenne
+Sécurité alimentaire
+Types d'agriculture comportant des caractéristiques de durabilité
+Histoire de l'agriculture
+Articles liés à la mondialisation
+Syndicats agricoles français
+
