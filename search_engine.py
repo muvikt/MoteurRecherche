@@ -224,15 +224,18 @@ class Search_engine:
 			head_lst = lst.pop()
 			head_lst_aux = lst_aux.pop()
 			lst = self.merge_dif_rec(lst,head_lst,lst_aux,head_lst_aux,[])
-			
 		#print lst
 		return lst
 
 	def tf_idf(self, doc_id):
 		solution= 0
 		for word in self.requete:
-			
-			solution = solution. 
+			total_noWords_in_doc=len(Doc.doc_file)
+			word_in_doc=(len(Doc.word2pos_list_title[word])+len(Doc.word2pos_list_first[word]) +len(Doc.word2pos_list_body[word]))
+			no_docs=DB.nb_doc_total
+			no_docs_with_word=0
+
+			solution = solution+ 
 		
 
 
@@ -248,6 +251,5 @@ class Search_engine:
 
 		
 search=Search_engine('search', "DataBase.txt", "./samples/", False)
-#print search.fuse_lst_rec([1,3,5],30,[3,7,12],15, [7,15],29, [])
 search.parse_requete('permet')
 print search.search_bool_req()
