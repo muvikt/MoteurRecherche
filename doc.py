@@ -20,6 +20,7 @@ class Doc:
 	global id_act
 	id_act=0
 	def __init__(self,doc_file):
+		print doc_file.split()
 		global id_act
 		self.id = id_act
 		id_act+=1
@@ -113,9 +114,9 @@ class Doc:
 			    self.word2pos_list_body[each].append(position)
 			position+=1
 		  line=flux.readline()
-		#print self.word2pos_list_title
-		#print self.word2pos_list_first
-		#print self.word2pos_list_body
+		#print self.id, .doc_file,' ', self.word2pos_list_title
+		#print self.doc_file,' ', self.word2pos_list_first
+		#print self.doc_file,' ', self.word2pos_list_body
 		
 		
 	def splitAccent(self,word):

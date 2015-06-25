@@ -102,12 +102,13 @@ class Search_engine:
 			word = self.stemmer.stem(word.decode('utf-8'))
 			self.requete.append(word)
 			#print 'apres', word
-		#print "requete (parse) :"
-		#for word in self.requete :
-			#print word
+		print "requete (parse) :"
+		for word in self.requete :
+			print word
 		#return 
 		
 	def fuse_lst_rec(self,title_lst,title_head,first_lst,first_head,body_lst,body_head,acc):
+		#print title_head, title_lst, first_head,first_lst, body_head,body_lst, acc
 		if acc == [] :
 			acc.append(-1)
 		m = max(title_head,first_head,body_head)
@@ -115,9 +116,11 @@ class Search_engine:
 		first_head_aux = first_head
 		body_head_aux = body_head		
 		if m == -1 :
+			print 'avant', acc
 			acc.reverse()
 			acc.pop()
 			return acc
+			print 'après', acc
 		if m == title_head_aux :
 			if title_lst != [] :
 				title_head_aux = title_lst.pop()
@@ -139,7 +142,7 @@ class Search_engine:
 			acc.append(m)
 		else :
 			acc.append(h)
-		self.fuse_lst_rec(title_lst,title_head_aux,first_lst,first_head_aux,body_lst,body_head_aux,acc)
+		return self.fuse_lst_rec(title_lst,title_head_aux,first_lst,first_head_aux,body_lst,body_head_aux,acc)
 		
 	def merge_dif_rec(self,lst1,head1,lst2,head2,acc):
 		if acc == [] :
@@ -184,13 +187,13 @@ class Search_engine:
 		  print self.DB.word2Word_struct[word].body
 		#word=self.stemmer.stem(word.decode('utf-8'))
 		for doc_id in self.DB.word2Word_struct[word].title :
-			print "title" , str(doc_id.doc_id)
+			#print "title" , str(doc_id.doc_id)
 			title_lst.append(doc_id.doc_id)
 		for doc_id in self.DB.word2Word_struct[word].first :
-			print "first" , str(doc_id.doc_id)
+			#print "first" , str(doc_id.doc_id)
 			first_lst.append(doc_id.doc_id)
 		for doc_id in self.DB.word2Word_struct[word].body :
-			print "body" , str(doc_id.doc_id)
+			#print "body" , str(doc_id.doc_id)
 			body_lst.append(doc_id.doc_id)
 		if title_lst != [] :
 			title_head = title_lst.pop()
@@ -232,6 +235,6 @@ class Search_engine:
 
 
 		
-search=Search_engine('build', "DataBase.txt", "./samples/", False)
-search.parse_requete('permet')
+search=Search_engine('search', "DataBase.txt", "./samples/", False)
+search.parse_requete('simple')
 print search.search_bool_req()
