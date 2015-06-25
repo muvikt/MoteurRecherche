@@ -60,7 +60,7 @@ class Search_engine:
 		elif mode == 'search' :
 			#chargement de la base de donnee
 			self.load_DB()
-		print self.DB.word2Word_struct
+		#print self.DB.word2Word_struct
 		
 	def build_DB(self):
 		"""
@@ -116,7 +116,8 @@ class Search_engine:
 		body_head_aux = body_head		
 		if m == -1 :
 			acc.reverse()
-			acc.pop()
+			a=acc.pop()
+			
 			return acc
 		if m == title_head_aux :
 			if title_lst != [] :
@@ -139,7 +140,8 @@ class Search_engine:
 			acc.append(m)
 		else :
 			acc.append(h)
-		self.fuse_lst_rec(title_lst,title_head_aux,first_lst,first_head_aux,body_lst,body_head_aux,acc)
+
+		return self.fuse_lst_rec(title_lst,title_head_aux,first_lst,first_head_aux,body_lst,body_head_aux,acc)
 		
 	def merge_dif_rec(self,lst1,head1,lst2,head2,acc):
 		if acc == [] :
@@ -184,13 +186,13 @@ class Search_engine:
 		  print self.DB.word2Word_struct[word].body
 		#word=self.stemmer.stem(word.decode('utf-8'))
 		for doc_id in self.DB.word2Word_struct[word].title :
-			print "title" , str(doc_id.doc_id)
+			#print "title" , str(doc_id.doc_id), str(self.DB.id2doc[doc_id.doc_id].doc_file)
 			title_lst.append(doc_id.doc_id)
 		for doc_id in self.DB.word2Word_struct[word].first :
-			print "first" , str(doc_id.doc_id)
+			#print "first" , str(doc_id.doc_id), str(self.DB.id2doc[doc_id.doc_id].doc_file)
 			first_lst.append(doc_id.doc_id)
 		for doc_id in self.DB.word2Word_struct[word].body :
-			print "body" , str(doc_id.doc_id)
+			#print "body" , str(doc_id.doc_id), str(self.DB.id2doc[doc_id.doc_id].doc_file)
 			body_lst.append(doc_id.doc_id)
 		if title_lst != [] :
 			title_head = title_lst.pop()
@@ -216,14 +218,26 @@ class Search_engine:
 			if lst == [] :
 				return []
 			lst_aux = self.search_bool_word(word)
+		
 			if lst_aux == [] :
 				return []
 			head_lst = lst.pop()
 			head_lst_aux = lst_aux.pop()
 			lst = self.merge_dif_rec(lst,head_lst,lst_aux,head_lst_aux,[])
+			
 		#print lst
 		return lst
+
+	def tf_idf(self, doc_id):
+		solution= 0
+		for word in self.requete:
+			
+			solution = solution. 
 		
+
+
+
+
 	def search_rank_req(self):
 		#TODO
 		return []
@@ -231,7 +245,9 @@ class Search_engine:
 
 
 
+
 		
-search=Search_engine('build', "DataBase.txt", "./samples/", False)
+search=Search_engine('search', "DataBase.txt", "./samples/", False)
+#print search.fuse_lst_rec([1,3,5],30,[3,7,12],15, [7,15],29, [])
 search.parse_requete('permet')
 print search.search_bool_req()
