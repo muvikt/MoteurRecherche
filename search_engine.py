@@ -19,8 +19,6 @@ from doc import *
 from data_base import *
 
 
-
-		
 class Search_engine:
 	"""
 		--Moteur de recherche--
@@ -228,29 +226,19 @@ class Search_engine:
 		#print lst
 		return lst
 
-	#def tf_idf(self, doc_id):
-		#solution= 0
-		#for word in self.requete:
-			#total_noWords_in_doc=len(Doc.doc_file)
-			#word_in_doc=(len(Doc.word2pos_list_title[word])+len(Doc.word2pos_list_first[word]) +len(Doc.word2pos_list_body[word]))
-			#no_docs=DB.nb_doc_total
-			#no_docs_with_word=0
-
-			#solution = solution+ 
-		
-
-
-
+	def tf_idf(self, doc_id):
+		solution= 0
+		for word in self.requete:
+			total_noWords_in_doc=Doc.nb_word
+			word_in_doc=(len(Doc.word2pos_list_title[word])+len(Doc.word2pos_list_first[word]) +len(Doc.word2pos_list_body[word]))
+			no_docs=DB.nb_doc_total
+			no_docs_with_word=####?????
+			solution = solution+ math.log(word_in_doc/total_noWords_in_doc)+ math.log(no_docs+no_docs_with_word))
 
 	def search_rank_req(self):
 		#TODO
 		return []
 
-
-
-
-
-		
 search=Search_engine('search', "DataBase.txt", "./samples/", False)
 search.parse_requete('permet')
 print search.search_bool_req()
