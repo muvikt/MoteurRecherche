@@ -1,7 +1,8 @@
 .gitignore
 *.xml
+*.txt
 *.pyc
-*.kdev
-./kdev4
+*.kdev*
+.kdev*
 ./Doc_example
 test*

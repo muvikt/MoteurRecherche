@@ -72,7 +72,7 @@ class MoteurRecherche(Tkinter.Tk):
 					self.text.configure(state='disabled')
 
 					#instance SE
-					self.SE=("search", "dumpDB.txt")
+					self.SE=Moteur.Search_engine('build', "DataBase.txt", "./samples/", False)
 					
 					self.window.grid(row=0, column=0, sticky=N+S+E+W)
 					
