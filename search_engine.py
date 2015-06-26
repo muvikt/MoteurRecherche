@@ -59,6 +59,7 @@ class Search_engine:
 			#chargement de la base de donnee
 			self.load_DB()
 		#print self.DB.word2Word_struct
+		self.resultat=[]
 		
 	def build_DB(self):
 		"""
@@ -230,10 +231,10 @@ class Search_engine:
 		solution= 0
 		for word in self.requete:
 			total_noWords_in_doc=Doc.nb_word
-			word_in_doc=(len(Doc.word2pos_list_title[word])+len(Doc.word2pos_list_first[word]) +len(Doc.word2pos_list_body[word]))
+			word_in_doc=(len(self.DB.id2doc[doc_id].word2pos_list_title[word])+len(self.DB.id2doc[doc_id].word2pos_list_first[word]) +len(self.DB.id2doc[doc_id].word2pos_list_body[word]))
 			no_docs=DB.nb_doc_total
 			no_docs_with_word=####?????
-			solution = solution+ math.log(word_in_doc/total_noWords_in_doc)+ math.log(no_docs+no_docs_with_word))
+			solution = solution+((word_in_doc/total_noWords_in_doc)*math.log(no_docs/no_docs_with_word)))
 
 	def search_rank_req(self):
 		#TODO
