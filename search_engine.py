@@ -230,7 +230,7 @@ class Search_engine:
 	def tf_idf(self, doc_id):
 		solution= 0
 		for word in self.requete:
-			total_noWords_in_doc=Doc.nb_word
+			total_noWords_in_doc = self.DB.id2doc[doc_id].nb_word
 			word_in_doc=(len(self.DB.id2doc[doc_id].word2pos_list_title[word])+len(self.DB.id2doc[doc_id].word2pos_list_first[word]) +len(self.DB.id2doc[doc_id].word2pos_list_body[word]))
 			no_docs=DB.nb_doc_total
 			no_docs_with_word=####?????
