@@ -233,13 +233,13 @@ class Search_engine:
 			total_noWords_in_doc = self.DB.id2doc[doc_id].nb_word
 			word_in_doc=(len(self.DB.id2doc[doc_id].word2pos_list_title[word])+len(self.DB.id2doc[doc_id].word2pos_list_first[word]) +len(self.DB.id2doc[doc_id].word2pos_list_body[word]))
 			no_docs=self.DB.nb_doc_total
-			no_docs_with_word=####?????
-			solution = solution+((word_in_doc/total_noWords_in_doc)*math.log(no_docs/no_docs_with_word)))
+			#no_docs_with_word=####?????
+			solution = solution+((word_in_doc/total_noWords_in_doc)*math.log(no_docs/no_docs_with_word))
 
 	def search_rank_req(self):
 		#TODO
 		return []
 
 search=Search_engine('search', "DataBase.txt", "./samples/", False)
-search.parse_requete('permet')
-print search.search_bool_req()
+#search.parse_requete('permet')
+#print search.search_bool_req()

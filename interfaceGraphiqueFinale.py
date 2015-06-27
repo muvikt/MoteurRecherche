@@ -149,7 +149,8 @@ class Seconde(Tkinter.Tk):
 					self.textPrint= Tkinter.Text(self.frame, height=43,bd=2, bg="white",font=("Georgia", 14,),
 											   borderwidth=3,foreground='black',highlightcolor='orange', yscrollcommand=yscrollbar.set)
 					self.textPrint.focus()
-					self.textPrint.insert(INSERT, self.lireFichierText(title=self.SE.DB.id2doc[liste_reponse[i]].doc_file))
+					self.lireFichierText(title=app.SE.DB.id2doc[self.liste_reponse[i]].doc_file)
+
 					self.textPrint.configure(state='disabled')
 					self.textPrint.grid(row=0, column=0,sticky=N+S+E+W)
 					yscrollbar.config(command=self.textPrint.yview)
