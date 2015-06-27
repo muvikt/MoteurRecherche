@@ -5,7 +5,9 @@ from Tkinter import*
 import Tkinter
 import os
 import sys
-import Moteur
+from search_engine import *
+from nltk.stem.snowball import FrenchStemmer
+
 
 #fenetre principale
 class MoteurRecherche(Tkinter.Tk):
@@ -44,7 +46,7 @@ class MoteurRecherche(Tkinter.Tk):
 					self.imageLogo = Tkinter.Label(self.window, image =self.imgLogo)
 					self.imageLogo.grid(row=0, column=0,sticky=N+S+E+W)
 					
-					# affiche results
+					# cadre affiche results
 					self.frame = Frame(self.window, bd=2, relief=GROOVE, background="white")
 					self.frame.grid_rowconfigure(0, weight=1)
 					self.frame.grid_columnconfigure(0, weight=1)				   
@@ -56,35 +58,29 @@ class MoteurRecherche(Tkinter.Tk):
 					self.frame.grid( row=3, column =0, sticky=N+S+E+W)
 					
    
-					#hyperlinks 
-					hyperlink = HyperlinkManager(self.text)
-
 					
-					#fonction qui ouvre le fichier
-					def click():
-						self.interface=Seconde(None)
-						self.interface.title('Moteur_Recherche_DOC')
-						self.interface.mainloop()
-						
-					for i in range(30):
-							  self.text.insert(INSERT, "title of the document", hyperlink.add(click))
-							  self.text.insert(INSERT, "\n\n")
-					self.text.configure(state='disabled')
-
-					#instance SE
-					self.SE=Moteur.Search_engine('build', "DataBase.txt", "./samples/", False)
-					
+					#instance SE - construire la base de données 
+					self.SE=Search_engine('build', "DataBase.txt", "./samples/", False)
 					self.window.grid(row=0, column=0, sticky=N+S+E+W)
 					
 
 		  #recupere le texte introduit par l'utilisateur rech_BIN
 		  def reqBIN(self):
+
 					liste_requete=self.SE.parse_requete(self.textEntry.get('1.0', END+'-1c'))
-					liste_reponse=self.SE.search_bool_req(liste_requete)
+					liste_reponse=self.SE.search_bool_req()
 					for i in range(25):
-							  title=self.SE.DB.id2doc[liste_reponse[i]].full_title
-							  self.text.insert(INSERT, "title of the document", hyperlink.add(click))
-							  self.text.insert(INSERT, "\n\n")
+						#fonction qui ouvre le fichier
+						def click():
+							self.interface=Seconde(None)
+							self.interface.title('Moteur_Recherche_DOC')
+							self.interface.mainloop()
+
+						title=self.SE.DB.id2doc[liste_reponse[i]].full_title
+						print title
+						hyperlink = HyperlinkManager(self.text)
+						self.text.insert(INSERT, title, hyperlink.add(click))
+						self.text.insert(INSERT, "\n\n")
 					self.text.configure(state='disabled')
 
 		  #recupere le texte introduit par l'utilisateur rech_RANK					
