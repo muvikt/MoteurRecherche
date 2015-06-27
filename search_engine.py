@@ -39,13 +39,13 @@ class Search_engine:
 		self.mode = mode
 		self.DB_file = DB_file
 		self.doc_list = []
-		doc_to_read=[]
-		for root, dirs, files in os.walk(doc_files, topdown=False):
-			for file_name in files: 
-				doc_to_read.append(os.path.join(root, file_name.encode('utf-8')))
-		for doc_file in doc_to_read :
-			doc = Doc(doc_file)
-			self.doc_list.append(doc)
+		#doc_to_read=[]
+		#for root, dirs, files in os.walk(doc_files, topdown=False):
+			#for file_name in files: 
+				#doc_to_read.append(os.path.join(root, file_name.encode('utf-8')))
+		#for doc_file in doc_to_read :
+			#doc = Doc(doc_file)
+			#self.doc_list.append(doc)
 		self.trace = trace
 		self.requete= []
 		self.DB = Data_Base()
@@ -55,19 +55,27 @@ class Search_engine:
 		if mode == 'build' :
 			#construction de la base de donnee, puis dump sur DB_file
 			print 'Built Data Base...'
-			self.build_DB()
+			self.build_DB(doc_files)
 			#print self.DB
+			print 'Build completed'
 		elif mode == 'search' :
 			#chargement de la base de donnee
 			self.load_DB()
 		#print self.DB.word2Word_struct
 		self.word2nbOccDsDB={}
 		
-	def build_DB(self):
+	def build_DB(self, doc_files):
 		"""
 			rempli seld.DB avec les documents de self.doc_files
 		"""
-		#TODO
+		compteur=0
+		doc_name=doc_files+'doc_'+str(compteur)+'.txt'
+		print doc_name
+		while os.path.exists(doc_name):
+		  doc=Doc(doc_name)
+		  self.doc_list.append(doc)
+		  compteur+=1
+		  doc_name=doc_files+'doc_'+str(compteur)+'.txt'
 		for doc in self.doc_list:
 				self.DB.add_doc(doc)
 		print self.DB.nb_doc_total
@@ -254,17 +262,17 @@ class Search_engine:
 	def tf_idf_score(self, listDoc_id):
 	  resultat={}
 	  for doc_id in listDoc_id:
-	    print 'avant', doc_id
+	    #print 'avant', doc_id
 	    resultat[doc_id]=self.tf_idf(doc_id)
-	    print 'après', doc_id
+	    #print 'après', doc_id
 	  return resultat
 	
 	def search_rank_req(self):
 		#TODO
 		return []
 
-search=Search_engine('search', "DataBase.txt", "./samples/", False)
-search.parse_requete('permet')
+search=Search_engine('build', "DataBase.txt", "./samples/", False)
+search.parse_requete('banque centrale')
 liste=search.search_bool_req()
 print liste
 print search.tf_idf_score(liste)
