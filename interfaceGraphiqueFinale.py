@@ -64,6 +64,7 @@ class MoteurRecherche(Tkinter.Tk):
 					#instance SE - construire la base de données 
 					self.SE=Search_engine('build', "DataBase.txt", "./samples/", False)
 					self.window.grid(row=0, column=0, sticky=N+S+E+W)
+					self.liste_reponse=[]
 					
 
 		  #recupere le texte introduit par l'utilisateur rech_BIN
@@ -71,23 +72,23 @@ class MoteurRecherche(Tkinter.Tk):
 
 					liste_requete=self.SE.parse_requete(self.textEntry.get('1.0', END+'-1c'))
 					print liste_requete
-					liste_reponse=self.SE.search_bool_req()
+					self.liste_reponse=self.SE.search_bool_req()
 					def affiche(iter_):
 						for i in range(iter_):
 							#fonction qui ouvre le fichier
 							def click():
-								self.interface=Seconde(None)
+								self.interface=Seconde(None,self.SE, self.liste_reponse, i)
 								self.interface.title('Moteur_Recherche_DOC')
 								self.interface.mainloop()
 
-							title=self.SE.DB.id2doc[liste_reponse[i]].full_title
+							title=self.SE.DB.id2doc[self.liste_reponse[i]].full_title
 							print title
 							hyperlink = HyperlinkManager(self.text)
 							self.text.insert(INSERT, title, hyperlink.add(click))
 							self.text.insert(INSERT, "\n\n")
 						self.text.configure(state='disabled')
-					if len(liste_reponse)< 25:
-						affiche(len(liste_reponse))
+					if len(self.liste_reponse)< 25:
+						affiche(len(self.liste_reponse))
 					else:
 						affiche(25)
 					
@@ -133,14 +134,17 @@ class HyperlinkManager:
 					
 class Seconde(Tkinter.Tk):
 		  
-		  def __init__(self, parent):
+		  def __init__(self, parent, searchEngine, liste_reponse, i):
 					Tkinter.Tk.__init__(self, parent)
 					self.parent = parent
-					self.initialize()
+					self.initialize(searchEngine, liste_reponse, i)
 
 
 
-		  def initialize(self):
+		  def initialize(self,searchEngine, liste_reponse, i):
+					self.SE=searchEngine
+					self.liste_reponse=liste_reponse
+					self.i=i
 					self.grid()
 					self.frame=Tkinter.Frame(self, width=600, height=700, bg='red')
 					self.frame.grid(row=0,column=0,sticky='E')
@@ -149,7 +153,8 @@ class Seconde(Tkinter.Tk):
 					self.textPrint= Tkinter.Text(self.frame, height=43,bd=2, bg="white",font=("Georgia", 14,),
 											   borderwidth=3,foreground='black',highlightcolor='orange', yscrollcommand=yscrollbar.set)
 					self.textPrint.focus()
-					self.textPrint.insert(INSERT, self.lireFichierText(title=self.SE.DB.id2doc[liste_reponse[i]].doc_file))
+					self.SE.DB.id2doc[self.liste_reponse[i]].doc_file
+					self.textPrint.insert(INSERT, self.lireFichierText(self.SE.DB.id2doc[self.liste_reponse[self.i]].doc_file))
 					self.textPrint.configure(state='disabled')
 					self.textPrint.grid(row=0, column=0,sticky=N+S+E+W)
 					yscrollbar.config(command=self.textPrint.yview)

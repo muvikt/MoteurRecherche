@@ -3,6 +3,7 @@
 
 import sys
 import re
+import math
 from optparse import OptionParser
 from collections import defaultdict
 from math import *
@@ -49,6 +50,7 @@ class Search_engine:
 		self.requete= []
 		self.DB = Data_Base()
 		self.stemmer=FrenchStemmer()
+		self.requeteFin=[]
 
 		if mode == 'build' :
 			#construction de la base de donnee, puis dump sur DB_file
@@ -59,7 +61,7 @@ class Search_engine:
 			#chargement de la base de donnee
 			self.load_DB()
 		#print self.DB.word2Word_struct
-		self.resultat=[]
+		self.word2nbOccDsDB={}
 		
 	def build_DB(self):
 		"""
@@ -100,6 +102,7 @@ class Search_engine:
 			#print 'avant', word
 			word = self.stemmer.stem(word.decode('utf-8'))
 			self.requete.append(word)
+			self.requeteFin.append(word)
 			#print 'apres', word
 		#print "requete (parse) :"
 		#for word in self.requete :
@@ -140,7 +143,6 @@ class Search_engine:
 			  acc.append(m)
 		  else :
 			  acc.append(h)
-
 		  return self.fuse_lst_rec(title_lst,title_head_aux,first_lst,first_head_aux,body_lst,body_head_aux,acc)
 		
 	def merge_dif_rec(self,lst1,head1,lst2,head2,acc):
@@ -181,9 +183,9 @@ class Search_engine:
 		body_lst = []
 		body_head = -1
 		print "searching ", word
-		if word in self.DB.word2Word_struct:
-		  print "YES"
-		  print self.DB.word2Word_struct[word].body
+		#if word in self.DB.word2Word_struct:
+		  #print "YES"
+		  #print self.DB.word2Word_struct[word].body
 		#word=self.stemmer.stem(word.decode('utf-8'))
 		for doc_id in self.DB.word2Word_struct[word].title :
 			#print "title" , str(doc_id.doc_id), str(self.DB.id2doc[doc_id.doc_id].doc_file)
@@ -200,7 +202,9 @@ class Search_engine:
 			first_head = first_lst.pop()
 		if body_lst != [] :
 			body_head = body_lst.pop()
-		return self.fuse_lst_rec(title_lst,title_head,first_lst,first_head,body_lst,body_head,[])
+		result=self.fuse_lst_rec(title_lst,title_head,first_lst,first_head,body_lst,body_head,[])
+		self.word2nbOccDsDB[word]=len(result)
+		return result
 		
 	def search_bool_req(self):
 		#print "requete (search) :"
@@ -227,19 +231,40 @@ class Search_engine:
 		#print lst
 		return lst
 
-	def tf_idf(self, doc_id):
+	def tf_idf(self, doc_id):#calcul le TF.IDF pour la requete pour chaque doc
 		solution= 0
-		for word in self.requete:
-			total_noWords_in_doc = self.DB.id2doc[doc_id].nb_word
-			word_in_doc=(len(self.DB.id2doc[doc_id].word2pos_list_title[word])+len(self.DB.id2doc[doc_id].word2pos_list_first[word]) +len(self.DB.id2doc[doc_id].word2pos_list_body[word]))
-			no_docs=self.DB.nb_doc_total
-			no_docs_with_word=####?????
-			solution = solution+((word_in_doc/total_noWords_in_doc)*math.log(no_docs/no_docs_with_word)))
-
+		int=1
+		doc=self.DB.id2doc[doc_id]
+		for word in self.requeteFin:
+			print int 
+			print self.requeteFin
+			int+=1
+			total_noWords_in_doc = float(doc.nb_word)
+			print 'self.DB.id2doc[doc_id].word2pos_list_title[word]', len(doc.word2pos_list_title[word])
+			print 'self.DB.id2doc[doc_id].word2pos_list_first[word]', doc.word2pos_list_first[word]
+			print 'self.DB.id2doc[doc_id].word2pos_list_body[word]', doc.word2pos_list_body[word]
+			word_in_doc=float((len(doc.word2pos_list_title[word])+len(doc.word2pos_list_first[word]) +len(doc.word2pos_list_body[word])))
+			no_docs=float(self.DB.nb_doc_total)
+			no_docs_with_word=self.word2nbOccDsDB[word]
+			print 'word_in_doc', word_in_doc
+			print 'total_noWords_in_doc', total_noWords_in_doc
+			print float(word_in_doc/total_noWords_in_doc)
+			solution +=float(word_in_doc/total_noWords_in_doc)*math.log1p(no_docs/no_docs_with_word)
+			print solution
+		return solution
+	      
+	def tf_idf_score(self, listDoc_id):
+	  resultat={}
+	  for doc_id in listDoc_id:
+	    resultat[doc_id]=self.tf_idf(doc_id)
+	  return resultat
+	
 	def search_rank_req(self):
 		#TODO
 		return []
 
 search=Search_engine('search', "DataBase.txt", "./samples/", False)
-search.parse_requete('permet')
+search.parse_requete('banque centrale')
 print search.search_bool_req()
+#liste=search.search_bool_req()
+#print search.tf_idf_score(liste)

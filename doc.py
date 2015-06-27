@@ -20,7 +20,7 @@ class Doc:
 	global id_act
 	id_act=0
 	def __init__(self,doc_file):
-		print doc_file.split()
+		#print doc_file.split()
 		global id_act
 		self.id = id_act
 		id_act+=1
