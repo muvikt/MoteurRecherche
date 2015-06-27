@@ -233,30 +233,30 @@ class Search_engine:
 
 	def tf_idf(self, doc_id):#calcul le TF.IDF pour la requete pour chaque doc
 		solution= 0
-		int=1
 		doc=self.DB.id2doc[doc_id]
 		for word in self.requeteFin:
-			print int 
-			print self.requeteFin
-			int+=1
+			word_in_title=0
+			word_in_first=0
+			word_in_body=0
 			total_noWords_in_doc = float(doc.nb_word)
-			print 'self.DB.id2doc[doc_id].word2pos_list_title[word]', len(doc.word2pos_list_title[word])
-			print 'self.DB.id2doc[doc_id].word2pos_list_first[word]', doc.word2pos_list_first[word]
-			print 'self.DB.id2doc[doc_id].word2pos_list_body[word]', doc.word2pos_list_body[word]
-			word_in_doc=float((len(doc.word2pos_list_title[word])+len(doc.word2pos_list_first[word]) +len(doc.word2pos_list_body[word])))
+			if word in doc.word2pos_list_title:
+			  word_in_title=len(doc.word2pos_list_title[word])
+			if word in doc.word2pos_list_first:
+			  word_in_first=len(doc.word2pos_list_first[word])
+			if word in doc.word2pos_list_body:
+			  word_in_body=len(doc.word2pos_list_body[word])
+			word_in_doc=float(word_in_body+word_in_first+word_in_title)
 			no_docs=float(self.DB.nb_doc_total)
 			no_docs_with_word=self.word2nbOccDsDB[word]
-			print 'word_in_doc', word_in_doc
-			print 'total_noWords_in_doc', total_noWords_in_doc
-			print float(word_in_doc/total_noWords_in_doc)
 			solution +=float(word_in_doc/total_noWords_in_doc)*math.log1p(no_docs/no_docs_with_word)
-			print solution
 		return solution
 	      
 	def tf_idf_score(self, listDoc_id):
 	  resultat={}
 	  for doc_id in listDoc_id:
+	    print 'avant', doc_id
 	    resultat[doc_id]=self.tf_idf(doc_id)
+	    print 'après', doc_id
 	  return resultat
 	
 	def search_rank_req(self):
@@ -264,7 +264,7 @@ class Search_engine:
 		return []
 
 search=Search_engine('search', "DataBase.txt", "./samples/", False)
-search.parse_requete('banque centrale')
-print search.search_bool_req()
-#liste=search.search_bool_req()
-#print search.tf_idf_score(liste)
+search.parse_requete('permet')
+liste=search.search_bool_req()
+print liste
+print search.tf_idf_score(liste)
