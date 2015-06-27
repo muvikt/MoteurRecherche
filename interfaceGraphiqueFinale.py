@@ -36,11 +36,13 @@ class MoteurRecherche(Tkinter.Tk):
 					#buttons( dans un Label)
 					self.boutons =Tkinter.Label(self.window,background="white")
 					self.boutons.grid(row =2, column=0, sticky='NS')
-					self.boutonChercheBin = Tkinter.Button( self.boutons, text = "Rech_BIN", width=9,command=self.reqBIN)
+					self.boutonChercheBin = Tkinter.Button( self.boutons, text = "SEARCH", width=9,command=self.reqBIN)
 					self.boutonChercheBin.grid(row =1, column= 1, sticky='NS')
-					self.boutonChercheRank = Tkinter.Button( self.boutons, text = "Rech_RANK", width=9,command=self.reqRANK)
+
+
+					"""self.boutonChercheRank = Tkinter.Button( self.boutons, text = "Rech_RANK", width=9,command=self.reqRANK)
 					self.boutonChercheRank.grid(row =1, column=2, sticky='NS')
-					
+					"""
 					#logo_picture
 					self.imgLogo = Tkinter.PhotoImage(file= "LogoWiki.gif")
 					self.imageLogo = Tkinter.Label(self.window, image =self.imgLogo)
@@ -68,26 +70,33 @@ class MoteurRecherche(Tkinter.Tk):
 		  def reqBIN(self):
 
 					liste_requete=self.SE.parse_requete(self.textEntry.get('1.0', END+'-1c'))
+					print liste_requete
 					liste_reponse=self.SE.search_bool_req()
-					for i in range(25):
-						#fonction qui ouvre le fichier
-						def click():
-							self.interface=Seconde(None)
-							self.interface.title('Moteur_Recherche_DOC')
-							self.interface.mainloop()
+					def affiche(iter_):
+						for i in range(iter_):
+							#fonction qui ouvre le fichier
+							def click():
+								self.interface=Seconde(None)
+								self.interface.title('Moteur_Recherche_DOC')
+								self.interface.mainloop()
 
-						title=self.SE.DB.id2doc[liste_reponse[i]].full_title
-						print title
-						hyperlink = HyperlinkManager(self.text)
-						self.text.insert(INSERT, title, hyperlink.add(click))
-						self.text.insert(INSERT, "\n\n")
-					self.text.configure(state='disabled')
-
+							title=self.SE.DB.id2doc[liste_reponse[i]].full_title
+							print title
+							hyperlink = HyperlinkManager(self.text)
+							self.text.insert(INSERT, title, hyperlink.add(click))
+							self.text.insert(INSERT, "\n\n")
+						self.text.configure(state='disabled')
+					if len(liste_reponse)< 25:
+						affiche(len(liste_reponse))
+					else:
+						affiche(25)
+					
+					"""
 		  #recupere le texte introduit par l'utilisateur rech_RANK					
 		  def reqRANK(self):
 					liste_requete=self.SE.parse_requete(self.textEntry.get('1.0', END+'-1c'))
 					liste_reponse=self.SE.search_rank_req(liste_requete)
-					
+					"""		
 		  
 
 #hyperlinkManager
