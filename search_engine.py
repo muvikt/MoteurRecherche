@@ -10,7 +10,7 @@ from math import *
 # pour melange aleatoire des exemples
 from random import shuffle
 # pour dump et rechargement rapide de structures python (ici la matrice de poids)
-import pickle
+import cPickle
 from copy import deepcopy
 from nltk.stem.snowball import FrenchStemmer
 #pour stemmatiser 
@@ -73,11 +73,9 @@ class Search_engine:
 		print doc_name
 		while os.path.exists(doc_name):
 		  doc=Doc(doc_name)
-		  self.doc_list.append(doc)
+		  self.DB.add_doc(doc)
 		  compteur+=1
 		  doc_name=doc_files+'doc_'+str(compteur)+'.txt'
-		for doc in self.doc_list:
-				self.DB.add_doc(doc)
 		print self.DB.nb_doc_total
 		#print self.DB.id2nbword
 		self.dump_DB()
@@ -86,9 +84,11 @@ class Search_engine:
 		"""
 			charge le contenu du fichier self.DB_file dans self.DB
 		"""
+		print 'Load Data Base'
 		stream = open(self.DB_file)
-		self.DB = pickle.load(stream)
+		self.DB = cPickle.load(stream)
 		stream.close()
+		print 'Loading completed'
 		return
 
 	def dump_DB(self):
@@ -96,9 +96,12 @@ class Search_engine:
 			dump le contenu de self.DB dans le fichier self.DB_file
 		"""
 		print 'Dump data base....'
-		stream = open(self.DB_file, 'w')
-		pickle.dump(self.DB, stream)
-		stream.close()
+		#stream = open(self.DB_file, 'w')
+		#cPickle.dump(self.DB, stream, protocol=2)
+		p=cPickle.Pickler(open(self.DB_file, 'wb'))
+		p.fast=True
+		p.dump(self.DB)
+		#stream.close()
 		#return 
 	
 	def parse_requete(self, requete):
@@ -271,7 +274,7 @@ class Search_engine:
 		#TODO
 		return []
 
-search=Search_engine('build', "DataBase.txt", "./samples/", False)
+search=Search_engine('search', "DataBase.txt", "./small_docs/", False)
 search.parse_requete('banque centrale')
 liste=search.search_bool_req()
 print liste

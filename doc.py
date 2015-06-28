@@ -114,6 +114,7 @@ class Doc:
 			    self.word2pos_list_body[each].append(position)
 			position+=1
 		  line=flux.readline()
+		flux.close()
 		#print self.id, .doc_file,' ', self.word2pos_list_title
 		#print self.doc_file,' ', self.word2pos_list_first
 		#print self.doc_file,' ', self.word2pos_list_body
