@@ -5,6 +5,7 @@ import sys
 import re
 import math
 import operator
+import webbrowser
 from optparse import OptionParser
 from collections import defaultdict
 from collections import OrderedDict
@@ -17,7 +18,6 @@ from copy import deepcopy
 from nltk.stem.snowball import FrenchStemmer
 #pour stemmatiser 
 import os.path
-import os
 from doc import *
 from data_base import *
 
@@ -51,9 +51,9 @@ class Search_engine:
 
 		if mode == 'build' :
 			#construction de la base de donnee, puis dump sur DB_file
-			print 'Built Data Base...'
+			print 'Building Data Base...'
 			self.build_DB(doc_files)
-			print 'Data Base built'
+			print 'Building completed'
 		elif mode == 'search' :
 			#chargement de la base de donnee
 			self.load_DB()
@@ -65,13 +65,12 @@ class Search_engine:
 		"""
 		compteur=0
 		doc_name=doc_files+'doc_'+str(compteur)+'.txt'
-		print doc_name
 		while os.path.exists(doc_name):
 		  doc=Doc(doc_name)
 		  self.DB.add_doc(doc)
 		  compteur+=1
 		  doc_name=doc_files+'doc_'+str(compteur)+'.txt'
-		print self.DB.nb_doc_total
+		print "Number of documents in the Data Base: ", self.DB.nb_doc_total
 		#print self.DB.id2nbword
 		self.dump_DB()
 
@@ -79,10 +78,11 @@ class Search_engine:
 		"""
 			charge le contenu du fichier self.DB_file dans self.DB
 		"""
-		print 'Load Data Base'
+		print 'Loadind Data Base...'
 		stream = open(self.DB_file)
 		self.DB = cPickle.load(stream)
 		stream.close()
+		print "Number of documents in the Data Base: ", self.DB.nb_doc_total
 		print 'Loading completed'
 		return
 
@@ -90,12 +90,11 @@ class Search_engine:
 		"""
 			dump le contenu de self.DB dans le fichier self.DB_file
 		"""
-		print 'Dump data base....'
-		#stream = open(self.DB_file, 'w')
-		#cPickle.dump(self.DB, stream, protocol=2)
+		print 'Dumping Data Base...'
 		p=cPickle.Pickler(open(self.DB_file, 'wb'))
 		p.fast=True
 		p.dump(self.DB)
+		print 'Dumping completed'
 		#stream.close()
 		#return 
 	
@@ -105,16 +104,9 @@ class Search_engine:
 			"""
 		req_list= re.findall( '\w+', requete)
 		for word in req_list :
-			#print 'avant', word
 			word = self.stemmer.stem(word.decode('utf-8'))
 			self.requete.append(word)
 			self.requeteFin.append(word)
-			#print 'apres', word
-		print self.requete
-		#print "requete (parse) :"
-		#for word in self.requete :
-			#print word
-		#return 
 		
 	def fuse_lst_rec(self,title_lst,title_head,first_lst,first_head,body_lst,body_head,acc):
 		if acc == [] :
@@ -189,11 +181,6 @@ class Search_engine:
 		first_head = -1
 		body_lst = []
 		body_head = -1
-		print "searching ", word
-		#if word in self.DB.word2Word_struct:
-		  #print "YES"
-		  #print self.DB.word2Word_struct[word].body
-		#word=self.stemmer.stem(word.decode('utf-8'))
 		for doc_id in self.DB.word2Word_struct[word].title :
 			#print "title" , str(doc_id.doc_id), str(self.DB.id2doc[doc_id.doc_id].doc_file)
 			title_lst.append(doc_id.doc_id)
@@ -214,18 +201,11 @@ class Search_engine:
 		return result
 		
 	def search_bool_req(self):
-		#print "requete (search) :"
-		#for word in self.requete :
-			###print word
 		if self.requete == [] :
 			return []
-		#TODO ajouter une fonction pour trier les mots par ordre croissant de doc
 		word0 = self.requete.pop()
-		#print "word (search) :",word0
 		lst = self.search_bool_word(word0)
 		for word in self.requete :
-			#print "word (search) :",word
-			# word=self.stemmer.stem(word.decode('utf-8'))
 			if lst == [] :
 				return []
 			lst_aux = self.search_bool_word(word)
@@ -235,7 +215,6 @@ class Search_engine:
 			head_lst = lst.pop()
 			head_lst_aux = lst_aux.pop()
 			lst = self.merge_dif_rec(lst,head_lst,lst_aux,head_lst_aux,[])
-		#print lst
 		return lst
 
 	def tf_idf(self, doc_id):#calcul le TF.IDF pour la requete pour chaque doc
@@ -262,37 +241,76 @@ class Search_engine:
 	  for doc_id in listDoc_id:
 	    self.idDoc2tfIdf[doc_id]=self.tf_idf(doc_id)
 	
-	def search_rank_req(self, requette, nbResMax):
-		self.parse_requete(requette)
+	def search_rank_req(self, requete, nbResMax):
+		self.requete=[]
+		self.requeteFin=[]
+		self.parse_requete(requete)
 		docsTrouves=self.search_bool_req()
 		self.tf_idf_score(docsTrouves)
-
-		#self.idDoc2tfIdf=sorted(self.idDoc2tfIdf.items(), key=operator.itemgetter(0))
-		#self.idDoc2tfIdf.reverse()
-		#print self.idDoc2tfIdf
-		
 		self.idDoc2tfIdf=OrderedDict(sorted(self.idDoc2tfIdf.items(), key=lambda t: t[1], reverse=True))
 		
 		keys=self.idDoc2tfIdf.keys()[:nbResMax]
+		if len(keys)<1:
+		  print 'Nothing found \n'
 		i=1
 		for doc in keys:
-		  print str(i)+'. '+self.id2docTitle(doc)+' . File: '+self.id2fileName(doc)
+		  print str(i)+'. '+self.id2docTitle(doc)+'File: '+self.id2fileName(doc)
 		  i+=1
-		#self.idDoc2tfIdf
-		#return []
 
 	def id2fileName(self, docId):
 	  return str(self.DB.id2doc[docId].doc_file)
 	
 	def id2docTitle(self,docId):
 	  return str(self.DB.id2doc[docId].full_title)
+	
+	def reset(self):
+	  self.requete=[]
+	  self.requeteFin=[]
+	  self.idDoc2tfIdf={}
 
-search=Search_engine('search', "DataBase.txt", "./small_docs/", False)
-requete=raw_input('Enter your search: ')
+
+
+usage = """ Moteur de recherche dans les articles de Wikipedia
+
+  %prog [options] (search|build) DataBase_folder DataBase_File 
+
+"""
+
+parser=OptionParser(usage=usage)
+parser.add_option("--nb", dest="nb", default=10, help='Nb de resultats affichés. Default=10')
+(opts,args) = parser.parse_args()
+
+nb = int(opts.nb)
+
+if len(args) < 3 or (args[0]!='build' and args[0]!='search'):
+    print 'Errors in arguments'
+    exit(usage)
+
+mode=args[0]
+DataBase_File=args[2]
+DataBase_folder=args[1]
+
+search=Search_engine(mode, DataBase_File, DataBase_folder, False)
+requete=raw_input('Enter your request: ')
 while requete!='q':
-  search.search_rank_req(requete, 25)
-  requete=raw_input('Enter your new search: ')
-
+  search.search_rank_req(requete, nb)
+  search.reset()
+  requete=raw_input('Enter your new request: ')
+  
+''' tentative d'ovrire un document dans un editeur
+  open=raw_input('Would you like to open a Doc File? (y or n): ')
+  while open!='y' and open!='n':
+     open=raw_input('Would you like to open a Doc File? (y or n): ')
+     if open == 'y':
+      number=raw_input('Enter a number of a document to open or \'-1\' for new searching: ')
+      while int(number)!=-1:
+	while int(number)>len(search.idDoc2tfIdf):
+	  number=raw_input('Enter a valid number of a document to open or \'-1\' for new searching: ')
+	docID=search.idDoc2tfIdf.keys()[int(number)]
+	docPath=search.id2fileName(docID)
+	webbrowser.open(docPath)
+     else:    
+'''
 sys.exit()
 
 
