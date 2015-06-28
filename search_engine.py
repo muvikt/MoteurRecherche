@@ -4,8 +4,10 @@
 import sys
 import re
 import math
+import operator
 from optparse import OptionParser
 from collections import defaultdict
+from collections import OrderedDict
 from math import *
 # pour melange aleatoire des exemples
 from random import shuffle
@@ -18,6 +20,7 @@ import os.path
 import os
 from doc import *
 from data_base import *
+
 
 
 class Search_engine:
@@ -39,29 +42,21 @@ class Search_engine:
 		self.mode = mode
 		self.DB_file = DB_file
 		self.doc_list = []
-		#doc_to_read=[]
-		#for root, dirs, files in os.walk(doc_files, topdown=False):
-			#for file_name in files: 
-				#doc_to_read.append(os.path.join(root, file_name.encode('utf-8')))
-		#for doc_file in doc_to_read :
-			#doc = Doc(doc_file)
-			#self.doc_list.append(doc)
 		self.trace = trace
 		self.requete= []
 		self.DB = Data_Base()
 		self.stemmer=FrenchStemmer()
 		self.requeteFin=[]
+		self.idDoc2tfIdf={}
 
 		if mode == 'build' :
 			#construction de la base de donnee, puis dump sur DB_file
 			print 'Built Data Base...'
 			self.build_DB(doc_files)
-			#print self.DB
-			print 'Build completed'
+			print 'Data Base built'
 		elif mode == 'search' :
 			#chargement de la base de donnee
 			self.load_DB()
-		#print self.DB.word2Word_struct
 		self.word2nbOccDsDB={}
 		
 	def build_DB(self, doc_files):
@@ -115,6 +110,7 @@ class Search_engine:
 			self.requete.append(word)
 			self.requeteFin.append(word)
 			#print 'apres', word
+		print self.requete
 		#print "requete (parse) :"
 		#for word in self.requete :
 			#print word
@@ -263,19 +259,46 @@ class Search_engine:
 		return solution
 	      
 	def tf_idf_score(self, listDoc_id):
-	  resultat={}
 	  for doc_id in listDoc_id:
-	    #print 'avant', doc_id
-	    resultat[doc_id]=self.tf_idf(doc_id)
-	    #print 'après', doc_id
-	  return resultat
+	    self.idDoc2tfIdf[doc_id]=self.tf_idf(doc_id)
 	
-	def search_rank_req(self):
-		#TODO
-		return []
+	def search_rank_req(self, requette, nbResMax):
+		self.parse_requete(requette)
+		docsTrouves=self.search_bool_req()
+		self.tf_idf_score(docsTrouves)
+
+		#self.idDoc2tfIdf=sorted(self.idDoc2tfIdf.items(), key=operator.itemgetter(0))
+		#self.idDoc2tfIdf.reverse()
+		#print self.idDoc2tfIdf
+		
+		self.idDoc2tfIdf=OrderedDict(sorted(self.idDoc2tfIdf.items(), key=lambda t: t[1], reverse=True))
+		
+		keys=self.idDoc2tfIdf.keys()[:nbResMax]
+		i=1
+		for doc in keys:
+		  print str(i)+'. '+self.id2docTitle(doc)+' . File: '+self.id2fileName(doc)
+		  i+=1
+		#self.idDoc2tfIdf
+		#return []
+
+	def id2fileName(self, docId):
+	  return str(self.DB.id2doc[docId].doc_file)
+	
+	def id2docTitle(self,docId):
+	  return str(self.DB.id2doc[docId].full_title)
 
 search=Search_engine('search', "DataBase.txt", "./small_docs/", False)
-search.parse_requete('banque centrale')
+requete=raw_input('Enter your search: ')
+while requete!='q':
+  search.search_rank_req(requete, 25)
+  requete=raw_input('Enter your new search: ')
+
+sys.exit()
+
+
+'''Version precedante de MAIN
+search.search_rank_req('banque centrale')
 liste=search.search_bool_req()
 print liste
 print search.tf_idf_score(liste)
+'''
