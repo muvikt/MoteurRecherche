@@ -256,6 +256,7 @@ class Search_engine:
 		for doc in keys:
 		  print str(i)+'. '+self.id2docTitle(doc)+'File: '+self.id2fileName(doc)
 		  i+=1
+		return keys
 
 	def id2fileName(self, docId):
 	  return str(self.DB.id2doc[docId].doc_file)
