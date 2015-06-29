@@ -271,54 +271,54 @@ class Search_engine:
 
 
 
-usage = """ Moteur de recherche dans les articles de Wikipedia
+# usage = """ Moteur de recherche dans les articles de Wikipedia
 
-  %prog [options] (search|build) DataBase_folder DataBase_File 
+#   %prog [options] (search|build) DataBase_folder DataBase_File 
 
-"""
+# """
 
-parser=OptionParser(usage=usage)
-parser.add_option("--nb", dest="nb", default=10, help='Nb de resultats affichés. Default=10')
-(opts,args) = parser.parse_args()
+# parser=OptionParser(usage=usage)
+# parser.add_option("--nb", dest="nb", default=10, help='Nb de resultats affichés. Default=10')
+# (opts,args) = parser.parse_args()
 
-nb = int(opts.nb)
+# nb = int(opts.nb)
 
-if len(args) < 3 or (args[0]!='build' and args[0]!='search'):
-    print 'Errors in arguments'
-    exit(usage)
+# if len(args) < 3 or (args[0]!='build' and args[0]!='search'):
+#     print 'Errors in arguments'
+#     exit(usage)
 
-mode=args[0]
-DataBase_File=args[2]
-DataBase_folder=args[1]
+# mode=args[0]
+# DataBase_File=args[2]
+# DataBase_folder=args[1]
 
-search=Search_engine(mode, DataBase_File, DataBase_folder, False)
-requete=raw_input('Enter your request: ')
-while requete!='q':
-  search.search_rank_req(requete, nb)
-  search.reset()
-  requete=raw_input('Enter your new request: ')
+# search=Search_engine(mode, DataBase_File, DataBase_folder, False)
+# requete=raw_input('Enter your request: ')
+# while requete!='q':
+#   search.search_rank_req(requete, nb)
+#   search.reset()
+#   requete=raw_input('Enter your new request: ')
   
-''' tentative d'ovrire un document dans un editeur
-  open=raw_input('Would you like to open a Doc File? (y or n): ')
-  while open!='y' and open!='n':
-     open=raw_input('Would you like to open a Doc File? (y or n): ')
-     if open == 'y':
-      number=raw_input('Enter a number of a document to open or \'-1\' for new searching: ')
-      while int(number)!=-1:
-	while int(number)>len(search.idDoc2tfIdf):
-	  number=raw_input('Enter a valid number of a document to open or \'-1\' for new searching: ')
-	docID=search.idDoc2tfIdf.keys()[int(number)]
-	docPath=search.id2fileName(docID)
-	webbrowser.open(docPath)
-     else:    
-'''
-sys.exit()
+# ''' tentative d'ovrire un document dans un editeur
+#   open=raw_input('Would you like to open a Doc File? (y or n): ')
+#   while open!='y' and open!='n':
+#      open=raw_input('Would you like to open a Doc File? (y or n): ')
+#      if open == 'y':
+#       number=raw_input('Enter a number of a document to open or \'-1\' for new searching: ')
+#       while int(number)!=-1:
+# 	while int(number)>len(search.idDoc2tfIdf):
+# 	  number=raw_input('Enter a valid number of a document to open or \'-1\' for new searching: ')
+# 	docID=search.idDoc2tfIdf.keys()[int(number)]
+# 	docPath=search.id2fileName(docID)
+# 	webbrowser.open(docPath)
+#      else:    
+# '''
+# sys.exit()
 
 
-'''Version precedante de MAIN
-search.search_rank_req('banque centrale')
-liste=search.search_bool_req()
-print liste
-print search.tf_idf_score(liste)
-'''
->>>>>>> 9bd8b8e87679df348285b1c41b0237cd7060a246
+# '''Version precedante de MAIN
+# search.search_rank_req('banque centrale')
+# liste=search.search_bool_req()
+# print liste
+# print search.tf_idf_score(liste)
+# '''
+

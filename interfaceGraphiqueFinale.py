@@ -52,23 +52,47 @@ class MoteurRecherche(Tkinter.Tk):
 					self.frame.grid_rowconfigure(0, weight=1)
 					self.frame.grid_columnconfigure(0, weight=1)				   
 					yscrollbar = Scrollbar(self.frame)
-					yscrollbar.grid(row=0, column=1, sticky=N+S)				   
+					yscrollbar.grid(row=0, column=1, sticky=N+S)
+								   
 					self.text = Text(self.frame,background="white",font=("Georgia", 18,),  bd=0,yscrollcommand=yscrollbar.set)				   
 					self.text.grid(row=0, column=0, sticky=N+S+E+W)
+
 					yscrollbar.config(command=self.text.yview)
 					self.frame.grid( row=3, column =0, sticky=N+S+E+W)
 					
 					#instance SE - construire la base de données 
-					self.SE=Search_engine('build', "DataBase.txt", "./samples/", False)
+					self.SE=Search_engine('search', "DataBase.txt", "./samples/", False)
 					self.window.grid(row=0, column=0, sticky=N+S+E+W)
 					self.liste_reponse=[]
+
 					
 
 		  #recupere le texte introduit par l'utilisateur rech_BIN
+		  """"
+		  def actionHyperlink(self):
+		  	
+		  	
+		  	self.interface=Seconde(None,self.SE, self.liste_reponse, i)
+			self.interface.title('Moteur_Recherche_DOC')
+			self.interface.mainloop()
+			"""
 		  def reqBIN(self):
-					liste_requete=self.SE.parse_requete(self.textEntry.get('1.0', END+'-1c'))
-					self.liste_reponse=self.SE.search_bool_req()
+					liste_requete=str(self.textEntry.get('1.0', END+'-1c'))
+					self.liste_reponse=self.SE.search_rank_req(liste_requete, 25 )
+					for i in range(len(self.liste_reponse)):
+						title=str(i+1)+ ".  "+ str(self.SE.DB.id2doc[self.liste_reponse[i]].full_title)
+						doc_file= "\t Fichier : "+str(self.SE.DB.id2doc[self.liste_reponse[i]].doc_file)
+						print doc_file
+						hyperlink = HyperlinkManager(self.text)
+						self.text.insert(INSERT, title, hyperlink)
+						self.text.insert(INSERT, doc_file  )
+				
+						self.text.insert(INSERT, "\n\n")
 
+						
+
+
+					"""
 					def affiche(iter_):
 						for i in range(iter_):
 							#fonction qui ouvre le fichier
@@ -88,7 +112,7 @@ class MoteurRecherche(Tkinter.Tk):
 						affiche(len(self.liste_reponse))
 					else:
 						affiche(25)
-					
+					"""
 								
 		  def reqRANK(self):
 					self.frame.destroy()
@@ -97,20 +121,22 @@ class MoteurRecherche(Tkinter.Tk):
 #hyperlinkManager
 class HyperlinkManager:
 
+
 		  def __init__(self, text):
 					self.text = text
 					self.text.tag_config("hyper", foreground="blue", underline=1)
 					self.text.tag_bind("hyper", "<Enter>", self._enter)
 					self.text.tag_bind("hyper", "<Leave>", self._quitter)
 					self.text.tag_bind("hyper", "<Button-1>", self._click)
+
 					self.reset()
 
 		  def reset(self):
 					self.links = {}
 
-		  def add(self, action):
+		  def add(self):
 					tag = "hyper-%d" % len(self.links)
-					self.links[tag] = action
+					#self.links[tag] = action
 					return "hyper", tag
 		  
 		  def _enter(self, event):
@@ -121,17 +147,20 @@ class HyperlinkManager:
 
 		  def _click(self, event):
 					for tag in self.text.tag_names(CURRENT):
-							  if tag[:6] == "hyper-":
-										self.links[tag]()
-										return
+						if tag[:6] == "hyper-":
+							self.links[tag]()
+					print("You clicked '%s'" % self.text)
+					
+							#return 
+
 
 					
 class Seconde(Tkinter.Tk):
 		  
-		  def __init__(self, parent, searchEngine, liste_reponse, i):
+		  def __init__(self, parent, searchEngine, liste_reponse):
 					Tkinter.Tk.__init__(self, parent)
 					self.parent = parent
-					self.initialize(searchEngine, liste_reponse, i)
+					self.initialize(searchEngine, liste_reponse)
 
 
 
@@ -147,7 +176,7 @@ class Seconde(Tkinter.Tk):
 					self.textPrint= Tkinter.Text(self.frame, height=43,bd=2, bg="white",font=("Georgia", 14,),
 											   borderwidth=3,foreground='black',highlightcolor='orange', yscrollcommand=yscrollbar.set)
 					self.textPrint.focus()
-					self.lireFichierText(title=app.SE.DB.id2doc[self.liste_reponse[i]].doc_file)
+					self.lireFichierText(app.SE.DB.id2doc[self.liste_reponse[i]].doc_file)
 
 
 					self.SE.DB.id2doc[self.liste_reponse[i]].doc_file
